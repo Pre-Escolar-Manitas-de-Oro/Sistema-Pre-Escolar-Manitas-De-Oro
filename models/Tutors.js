@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 
 const sequelize = require("../util/database");
 
-const Student = sequelize.define("students", {
+const Tutor = sequelize.define("tutors", {
 
     id: {
 
@@ -19,7 +19,6 @@ const Student = sequelize.define("students", {
         allowNull: false,
 
     },
-
     lastname: {
 
         type: Sequelize.STRING,
@@ -27,27 +26,17 @@ const Student = sequelize.define("students", {
 
     },
 
-    birthdate: {
-
-        type: Sequelize.DATEONLY,
-        allowNull: false,
-
-    },
-
-    phone: {
+    cedula: {
 
         type: Sequelize.STRING,
         allowNull: false,
 
     },
 
-    active: {
 
-        type: Sequelize.BOOLEAN,
-        allowNull: true,
-    },
+
 });
 
 
 
-module.exports = Student;
+module.exports = Tutor;
