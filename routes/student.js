@@ -3,8 +3,8 @@ const path = require("path");
 
 const router = express.Router();
 
-const studentController = require("../controllers/StudentController");
-const Student = require("../models/Students");
+const studentController = require("../controllers/studentController");
+
 
 router.get("/", studentController.GetIndex);
 router.get("/admin-student", studentController.GetAdminStudent);

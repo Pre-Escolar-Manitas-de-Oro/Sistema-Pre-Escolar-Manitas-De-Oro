@@ -69,3 +69,64 @@ exports.PostSaveTutor = (req, res, next) => {
     });
 
 }
+
+//obtener la vista de los estudiantes a editar cursos
+
+exports.getEditTutor = (req, res, next) => {
+    const edit = req.query.edit;
+    const tutorId = req.params.tutorId;
+
+    if(!edit){
+        return res.redirect("tutors/tutors-lists");
+    }
+
+    Tutor.findOne({where: {id: tutorId}}).then((result) => {
+        const tutors = result.dataValues;
+        if(!tutors){
+            return res.redirect("tutors/tutors-lists");
+        }
+
+        Tutor.findAll().then((result2) => {
+            
+         const tutor = result2.map((result2) => result2.dataValues );
+                
+            console.log (tutor.length > 0);
+                res.render("tutors/save-tutor",
+                    {pageTitle: "Editar-tutores",
+                    tutorActive: true,
+                    tutor: Tutor,
+                    hasTutor: Tutor.length > 0});
+                }).catch(err => {
+                    console.log(err);
+                });
+            }).catch(err2 => {
+                console.log(err2);
+            });
+   
+    
+};
+
+//Guarda los cursos al momento de presionar el boton guardar.
+exports.postEditTutor = (req, res, next) => {
+    const name = req.body.name;
+    const id = req.body.tutorId;
+
+    Tutor.findOne({where: {id: id}}).then((result) => {
+
+        const tutors = result.dataValues;
+
+        if(!tutors){
+            return res.redirect("tutors/save-tutor");
+        }
+
+
+    Tutor.update({name: name}, {where: {id: id}})
+    .then((result) => {
+        return res.redirect("tutors/save-tutor");
+    }).catch((err) => {
+        console.log(err);
+    });
+}).catch((err1) => {
+    console.log(err1);
+});
+}
