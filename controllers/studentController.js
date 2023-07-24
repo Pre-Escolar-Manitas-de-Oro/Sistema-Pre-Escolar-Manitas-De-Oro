@@ -130,52 +130,53 @@ exports.getEditStudent = (req, res, next) => {
     const edit = req.query.edit;
     const studentId = req.params.studentId;
 
-    if(!edit){
+    if (!edit) {
         return res.redirect("/admin-student");
     }
 
-    Student.findOne({where: {id: studentId}}).then((result) => {
+    Student.findOne({ where: { id: studentId } }).then((result) => {
         const student = result.dataValues;
-        if(!student){
+        if (!student) {
             return res.redirect("/admin-student");
         }
 
         Course.findAll().then((result2) => {
             Family.findAll().then((result3) => {
                 Tutor.findAll().then((result4) => {
-        
-                const course = result2.map((result2) => result2.dataValues );
-                const familys = result3.map((result3) => result3.dataValues );
-                const tutors = result4.map((result4) => result4.dataValues );
-               
-                res.render("student/save-student",
-                    {pageTitle: "Editar-students", 
-                    homeActive: true,
-                    editMode: edit,
-                    Student: Student,
-                    Course: course,
-                    Family: familys,
-                    Tutor: tutors,
-                    hasCourse: course.length > 0,
-                    hasFamily: familys.length > 0,
-                    hasTutor: tutors.length > 0,});
+
+                    const course = result2.map((result2) => result2.dataValues);
+                    const familys = result3.map((result3) => result3.dataValues);
+                    const tutors = result4.map((result4) => result4.dataValues);
+
+                    res.render("student/save-student", {
+                        pageTitle: "Editar-students",
+                        homeActive: true,
+                        editMode: edit,
+                        Student: Student,
+                        Course: course,
+                        Family: familys,
+                        Tutor: tutors,
+                        hasCourse: course.length > 0,
+                        hasFamily: familys.length > 0,
+                        hasTutor: tutors.length > 0,
+                    });
                 }).catch(err4 => {
                     console.log(err4);
                 });
             }).catch(err3 => {
                 console.log(err3);
             });
-    
+
         }).catch(err2 => {
             console.log(err2);
         });
-    
-    }).catch(err => {
-            console.log(err);
-        });
 
-   
-    
+    }).catch(err => {
+        console.log(err);
+    });
+
+
+
 };
 //Guarda los datos al momento de presionar el boton editar.
 exports.postEditStudent = (req, res, next) => {
@@ -188,31 +189,31 @@ exports.postEditStudent = (req, res, next) => {
     const estudianteCourse = req.body.Course;
     const id = req.body.studentId;
 
-    Student.findOne({where: {id: id}}).then((result) => {
+    Student.findOne({ where: { id: id } }).then((result) => {
 
         const student = result.dataValues;
 
-        if(!student){
+        if (!student) {
             return res.redirect("/admin-student");
         }
 
-    Student.update({ 
-        name: estudianteName,
-        lastname: estudianteApellido,
-        courseId: estudianteCourse,
-        familyId: estudianteFamiliy,
-        tutorId: estudianteTutor,
-        birthdate: estudianteBirthDate,
-        phone: estudiantePhone
-    }, {where: {id: id}})
-    .then((result) => {
-        return res.redirect("/admin-student");
+        Student.update({
+                name: estudianteName,
+                lastname: estudianteApellido,
+                courseId: estudianteCourse,
+                editMode: edit,
+                familyId: estudianteFamiliy,
+                tutorId: estudianteTutor,
+                birthdate: estudianteBirthDate,
+                phone: estudiantePhone
+            }, { where: { id: id } })
+            .then((result) => {
+                return res.redirect("/admin-student");
+            }).catch((err) => {
+                console.log(err);
+            });
     }).catch((err) => {
         console.log(err);
     });
-}).catch((err) => {
-    console.log(err);
-});
-    
-};
 
+};

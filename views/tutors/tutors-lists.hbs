@@ -1,0 +1,53 @@
+<main>
+<h1 class="text-center  text-success  ">Tutores.</h1>
+
+<div class="main-container">
+      <a class=" btn btn-primary " href="/save-tutor">Guardar Tutor</a>
+
+
+<div class="row">
+
+{{#if hasTutor}}
+
+{{#each tutor as |tu|}}
+
+<div class="col-md-4 mt-5">
+
+   <div class="card bg-dark text-light" style="width: 18rem;">
+
+    <div class="card-body">
+        <h5 required class="card-text text-info">Nombre:{{tu.name}}</h5>
+
+
+    </div>
+
+    <div class="card-body">
+        <p required class="card-text text-light">Apellido: {{tu.lastname}}</p>
+
+ 
+    </div>
+  <div class="card-body">
+        <p required class="card-text text-light">Cedula: {{tu.cedula}}</p>
+
+
+     <a class=" btn btn-success" href="/edit-tutor/{{tu.id}}?edit=true">editar</a>       
+         
+    </div>
+
+
+</div>
+
+</div>
+
+{{/each}}
+
+{{else}}
+
+<h1 class=" text-danger ">No hay cursos creados</h1>
+
+{{/if}}
+
+</div>
+</div>
+
+</main>

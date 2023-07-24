@@ -1,0 +1,41 @@
+<main>
+<h1 class="text-center  text-success  ">Cursos.</h1>
+
+<div class="main-container">
+      <a class=" btn btn-primary " href="/save-course">Crear Curso</a>
+
+
+<div class="row">
+
+{{#if hasCourse}}
+
+{{#each course as |cou|}}
+
+<div class="col-md-4 mt-5">
+
+   <div class="card bg-dark text-light" style="width: 18rem;">
+
+    <div class="card-body">
+        <h5 required class="card-text text-info">Curso:{{cou.name}}</h5>
+
+      <a class=" btn btn-success" href="/edit-course/{{cou.id}}?edit=true">editar</a>       
+     
+    </div>
+
+
+</div>
+
+</div>
+
+{{/each}}
+
+{{else}}
+
+<h1 class=" text-danger ">No hay cursos creados</h1>
+
+{{/if}}
+
+</div>
+</div>
+
+</main>

@@ -62,34 +62,36 @@ exports.getEditFamily = (req, res, next) => {
     const edit = req.query.edit;
     const familyId = req.params.familyId;
 
-    if(!edit){
+    if (!edit) {
         return res.redirect("families/families-lists");
     }
 
-    Family.findOne({where: {id: familyId}}).then((result) => {
+    Family.findOne({ where: { id: familyId } }).then((result) => {
         const familys = result.dataValues;
-        if(!familys){
+        if (!familys) {
             return res.redirect("families/families-lists");
         }
 
         Family.findAll().then((result2) => {
-            
-         const family = result2.map((result2) => result2.dataValues );
-                
-            console.log (family.length > 0);
-                res.render("families/save-family",
-                    {pageTitle: "Editar-familias",
-                    familyActive: true,
-                    family: Family,
-                    hasFamily: Family.length > 0});
-                }).catch(err => {
-                    console.log(err);
-                });
-            }).catch(err2 => {
-                console.log(err2);
+
+            const family = result2.map((result2) => result2.dataValues);
+
+            console.log(family.length > 0);
+            res.render("families/save-family", {
+                pageTitle: "Editar-familias",
+                familyActive: true,
+                editMode: edit,
+                family: Family,
+                hasFamily: Family.length > 0
             });
-   
-    
+        }).catch(err => {
+            console.log(err);
+        });
+    }).catch(err2 => {
+        console.log(err2);
+    });
+
+
 };
 
 //Guarda los cursos al momento de presionar el boton guardar.
@@ -97,22 +99,22 @@ exports.postEditFamily = (req, res, next) => {
     const name = req.body.name;
     const id = req.body.familyId;
 
-    Course.findOne({where: {id: id}}).then((result) => {
+    Course.findOne({ where: { id: id } }).then((result) => {
 
         const familys = result.dataValues;
 
-        if(!familys){
+        if (!familys) {
             return res.redirect("families/save-family");
         }
 
 
-    Course.update({name: name}, {where: {id: id}})
-    .then((result) => {
-        return res.redirect("families/save-family");
-    }).catch((err) => {
-        console.log(err);
+        Course.update({ name: name }, { where: { id: id } })
+            .then((result) => {
+                return res.redirect("families/save-family");
+            }).catch((err) => {
+                console.log(err);
+            });
+    }).catch((err1) => {
+        console.log(err1);
     });
-}).catch((err1) => {
-    console.log(err1);
-});
 }
