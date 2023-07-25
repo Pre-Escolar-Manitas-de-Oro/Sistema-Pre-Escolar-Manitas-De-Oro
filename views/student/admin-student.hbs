@@ -1,0 +1,47 @@
+<main>
+<h1 class="text-center  text-success  ">Estudiantes.</h1>
+
+<div class="main-container">
+      <a class=" btn btn-primary " href="/save-student">Crear estudiantes</a>
+
+
+<div class="row">
+
+{{#if hasEstudiantes}}
+
+{{#each estudiante as |est|}}
+
+<div class="col-md-4 mt-5 mb-3">
+
+   <div class="card " style="width: 18rem;">
+
+    <div class="card-body">
+        <h5 class="card-text">Nombre:{{est.name}}</h5>
+    </div>
+
+    <div class="card-body">
+        <p  class="card-text">Apellido: {{est.lastname}}</p>
+        <p  class="card-text">Fecha de cumpleaños: {{est.birthdate}}</p>
+        <p  class="card-text">Familia: {{est.family.dataValues.name}}</p>
+        <a class=" btn btn-success" href="/edit-student/{{est.id}}?edit=true">editar</a> 
+    </div>
+      
+    </div>
+
+
+</div>
+
+</div>
+
+{{/each}}
+
+{{else}}
+<div class="mt-4">
+    <h1 class=" text-danger ">No hay estudiantes creados</h1>
+</div>
+{{/if}}
+
+</div>
+</div>
+
+</main>

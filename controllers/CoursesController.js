@@ -40,7 +40,7 @@ exports.PostSaveCourse = (req, res, next) => {
 
     const nombre = req.body.Name;
 
-    Autor.create({
+    Course.create({
         name: nombre,
 
 
@@ -63,57 +63,59 @@ exports.getEditCourse = (req, res, next) => {
     const edit = req.query.edit;
     const coursesId = req.params.coursesId;
 
-    if(!edit){
-        return res.redirect("courses/courses-lists");
+    if (!edit) {
+        return res.redirect("/course");
     }
 
-    Course.findOne({where: {id: coursesId}}).then((result) => {
+    Course.findOne({ where: { id: coursesId } }).then((result) => {
         const courses = result.dataValues;
-        if(!courses){
-            return res.redirect("courses/courses-lists");
+        if (!courses) {
+            return res.redirect("/course");
         }
 
         Course.findAll().then((result2) => {
-            
-         const course = result2.map((result2) => result2.dataValues );
-                
-            console.log (course.length > 0);
-                res.render("courses/save-course",
-                    {pageTitle: "Editar-cursos",
-                    courseActive: true,
-                    course: Course,
-                    hasCourse: Course.length > 0});
-                }).catch(err => {
-                    console.log(err);
-                });
-            }).catch(err2 => {
-                console.log(err2);
+
+            const course = result2.map((result2) => result2.dataValues);
+
+            console.log(course.length > 0);
+            res.render("courses/save-course", {
+                pageTitle: "Editar-cursos",
+                courseActive: true,
+                editMode: edit,
+                courses: courses,
+                course: courses,
+                hasCourse: Course.length > 0
             });
-   
-    
+        }).catch(err => {
+            console.log(err);
+        });
+    }).catch(err2 => {
+        console.log(err2);
+    });
+
+
 };
 
 //Guarda los cursos al momento de presionar el boton guardar.
 exports.postEditCourse = (req, res, next) => {
-    const name = req.body.name;
+    const name = req.body.Name;
     const id = req.body.coursesId;
 
-    Course.findOne({where: {id: id}}).then((result) => {
+    Course.findOne({ where: { id: id } }).then((result) => {
 
         const courses = result.dataValues;
 
-        if(!courses){
-            return res.redirect("courses/courses-lists");
+        if (!courses) {
+            return res.redirect("/course");
         }
 
-
-    Course.update({name: name}, {where: {id: id}})
-    .then((result) => {
-        return res.redirect("courses/courses-lists");
-    }).catch((err) => {
-        console.log(err);
+        Course.update({ name: name }, { where: { id: id } })
+            .then((result) => {
+                return res.redirect("/course");
+            }).catch((err) => {
+                console.log(err);
+            });
+    }).catch((err1) => {
+        console.log(err1);
     });
-}).catch((err1) => {
-    console.log(err1);
-});
 }

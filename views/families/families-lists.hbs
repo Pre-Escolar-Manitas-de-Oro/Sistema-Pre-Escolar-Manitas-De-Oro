@@ -1,0 +1,41 @@
+<main>
+<h1 class="text-center  text-success  ">Familias.</h1>
+
+<div class="main-container">
+      <a class=" btn btn-primary " href="/save-family">Crear familias</a>
+
+
+<div class="row">
+
+{{#if hasFamily}}
+
+{{#each family as |fam|}}
+
+<div class="col-md-4 mt-5 mb-3">
+
+   <div class="card bg-dark text-light" style="width: 18rem;">
+
+    <div class="card-body">
+        <h5 required class="card-text text-info">Curso:{{fam.name}}</h5>
+
+      <a class=" btn btn-success" href="/edit-family/{{fam.id}}?edit=true">editar</a>       
+     
+    </div>
+
+
+</div>
+
+</div>
+
+{{/each}}
+
+{{else}}
+<div class="mt-4">
+    <h1 class=" text-danger ">No hay Familias creadas</h1>
+</div>
+{{/if}}
+
+</div>
+</div>
+
+</main>

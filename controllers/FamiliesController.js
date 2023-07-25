@@ -38,7 +38,7 @@ exports.GetSaveFamily = (req, res, next) => {
 //Guarda los datos al momento de presionar el boton guardar.
 exports.PostSaveFamily = (req, res, next) => {
 
-    const nombre = req.body.Name;
+    const nombre = req.body.lastname;
 
     Family.create({
         name: nombre,
@@ -62,57 +62,57 @@ exports.getEditFamily = (req, res, next) => {
     const edit = req.query.edit;
     const familyId = req.params.familyId;
 
-    if(!edit){
-        return res.redirect("families/families-lists");
+    if (!edit) {
+        return res.redirect("/family");
     }
 
-    Family.findOne({where: {id: familyId}}).then((result) => {
+    Family.findOne({ where: { id: familyId } }).then((result) => {
         const familys = result.dataValues;
-        if(!familys){
-            return res.redirect("families/families-lists");
+        if (!familys) {
+            return res.redirect("/family");
         }
 
         Family.findAll().then((result2) => {
-            
-         const family = result2.map((result2) => result2.dataValues );
-                
-            console.log (family.length > 0);
-                res.render("families/save-family",
-                    {pageTitle: "Editar-familias",
-                    familyActive: true,
-                    family: Family,
-                    hasFamily: Family.length > 0});
-                }).catch(err => {
-                    console.log(err);
-                });
-            }).catch(err2 => {
-                console.log(err2);
+
+            const family = result2.map((result2) => result2.dataValues);
+            res.render("families/save-family", {
+                pageTitle: "Editar-familias",
+                familyActive: true,
+                editMode: edit,
+                family: familys,
+                hasFamily: family.length > 0
             });
-   
-    
+        }).catch(err => {
+            console.log(err);
+        });
+    }).catch(err2 => {
+        console.log(err2);
+    });
+
+
 };
 
 //Guarda los cursos al momento de presionar el boton guardar.
 exports.postEditFamily = (req, res, next) => {
-    const name = req.body.name;
+    const name = req.body.lastname;
     const id = req.body.familyId;
 
-    Course.findOne({where: {id: id}}).then((result) => {
+    Family.findOne({ where: { id: id } }).then((result) => {
 
         const familys = result.dataValues;
 
-        if(!familys){
-            return res.redirect("families/save-family");
+        if (!familys) {
+            return res.redirect("/family");
         }
 
 
-    Course.update({name: name}, {where: {id: id}})
-    .then((result) => {
-        return res.redirect("families/save-family");
-    }).catch((err) => {
-        console.log(err);
+        Family.update({ name: name }, { where: { id: id } })
+            .then((result1) => {
+                return res.redirect("/family");
+            }).catch((err) => {
+                console.log(err);
+            });
+    }).catch((err1) => {
+        console.log(err1);
     });
-}).catch((err1) => {
-    console.log(err1);
-});
 }

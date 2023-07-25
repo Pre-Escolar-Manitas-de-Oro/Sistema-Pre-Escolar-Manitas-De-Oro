@@ -35,7 +35,7 @@ const tutors = require("./routes/tutors");
 //importar helpers.
 
 const comparador = require("./util/helpers/hbs/comparar");
-
+const compare = require("./util/helpers/hbs/compare");
 
 app.engine('hbs', expressHbs.engine({
 
@@ -45,9 +45,10 @@ app.engine('hbs', expressHbs.engine({
     helpers: {
 
         IgualValor: comparador.IgualValor,
+        equals: compare.equals,
 
     },
-
+   
 }));
 
 app.set("view engine", "hbs");

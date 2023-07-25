@@ -1,0 +1,35 @@
+<div class="row">
+
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+
+    <div class="card">
+      <div class="card-header bg-dark text-white">
+        {{#if editMode}}Edicion{{else}}Creacion{{/if}} de familias
+      </div>
+
+      <div class="card-body">
+
+        <form method="POST" action="{{#if editMode}}/edit-family{{else}}/save-family{{/if}}">
+          <div class="mb-3">
+            <label for="name" class="form-label">Apellidos:</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Instroduca los apellidos fameilia" required value="{{#if editMode}}{{family.name}}{{/if}}"/>
+          </div>
+
+          {{#if editMode}}
+
+          <input type="hidden" name="familyId" value="{{family.id}}">
+          
+          {{/if}}
+
+          <button type="submit" class="btn btn-primary">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
+           <a href="/family" type="button" class="btn btn-warning">volver atras</a>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-6"></div>
+
+</div>

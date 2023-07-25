@@ -34,13 +34,6 @@ const Student = sequelize.define("students", {
 
     },
 
-    phone: {
-
-        type: Sequelize.STRING,
-        allowNull: false,
-
-    },
-
     active: {
 
         type: Sequelize.BOOLEAN,
