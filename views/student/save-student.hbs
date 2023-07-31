@@ -1,61 +1,51 @@
-<div class="row">
-
-  <div class="col-md-3"></div>
+<div class="row justify-content-center mt-5">
   <div class="col-md-6">
     {{#if hasFamily}}
     <div class="card">
-      <div class="card-header bg-dark text-white">
-        {{#if editMode}}Edicion{{else}}Creacion{{/if}} de estudiantes
+      <div class="card-header bg-secondary text-white text-center">
+        {{#if editMode}}Edición{{else}}Creación{{/if}} de estudiantes
       </div>
-
       <div class="card-body">
 
         <form method="POST" action="{{#if editMode}}/edit-student{{else}}/save-student{{/if}}">
-        <div class="mb-3">
-            <label for="name" class="form-label">Nombre:</label>
-            <input type="text" class="form-control" id="name" name="name" required value="{{#if editMode}}{{student.name}}{{/if}}"/>
-        </div>
-        <div class="mb-3">
-            <label for="lastname" class="form-label">Apellidos:</label>
-            <input type="text" class="form-control" id="lastname" name="lastname" required value="{{#if editMode}}{{student.lastname}}{{/if}}"/>
-        </div>
-        <div class="mb-3">
-            <label for="birthdate" class="form-label">Fecha de cumpleaños:</label>
-            <input type="date" class="form-control" id="birthdate" name="birthdate"  required value="{{#if editMode}}{{student.birthdate}}{{/if}}"/>
-        </div>
-        <div class="mb-3">
-            <label for="familys" class="form-label">Familias:</label>
+          <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="name" name="name" required value="{{#if editMode}}{{student.name}}{{/if}}">
+          </div>
+          <div class="mb-3">
+            <label for="lastname" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" required value="{{#if editMode}}{{student.lastname}}{{/if}}">
+          </div>
+          <div class="mb-3">
+            <label for="birthdate" class="form-label">Fecha de cumpleaños</label>
+            <input type="date" class="form-control" id="birthdate" name="birthdate" required value="{{#if editMode}}{{student.birthdate}}{{/if}}">
+          </div>
+          <div class="mb-3">
+            <label for="familys" class="form-label">Familias</label>
             <select id="familys" name="familys" class="form-select" required>
-                <option value="" {{#if editMode}}{{else}} selected {{/if}}>Seleccione una familia</option>
-                    {{#each family as |fam|}}
+              <option value="" {{#if editMode}}{{else}} selected {{/if}}>Seleccione una familia</option>
+              {{#each family as |fam|}}
+              {{#if (equals fam.id ../student.familyId)}}
+              <option value="{{fam.id}}" selected>{{fam.name}}</option>
+              {{else}}
+              <option value="{{fam.id}}">{{fam.name}}</option>
+              {{/if}}
+              {{/each}}
+            </select>
+          </div>
 
-                        {{#if (equals fam.id ../student.familyId)}}
-                            <option value="{{fam.id}}" selected >{{fam.name}}</option>
-                        {{else}}
-                            <option value="{{fam.id}}">{{fam.name}}</option>
-                        {{/if}}
-                    {{/each}}
-             </select>
-        </div>
-            
           {{#if editMode}}
-
           <input type="hidden" name="studentId" value="{{student.id}}">
-          
           {{/if}}
 
-          <button type="submit" class="btn btn-primary">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
-           <a href="/admin-student" type="button" class="btn btn-warning">volver atras</a>
+          <button type="submit" class="btn btn-success">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
+          <a href="/admin-student" class="btn btn-danger">Volver atrás</a>
         </form>
-
       </div>
     </div>
-
-  </div>
-  
-  <div class="col-md-6"></div>
     {{else}}
-        <h1 class=" text-danger mt-5 ">No hay familias creadas</h1>
-        <h3 class=" text-danger mt-5 ">crea una familia antes de crear un estudiante</h3>
+    <h1 class="text-danger mt-5 text-center">No hay familias creadas</h1>
+    <h3 class="text-danger mt-5 text-center">Crea una familia antes de crear un estudiante</h3>
     {{/if}}
+  </div>
 </div>

@@ -1,28 +1,28 @@
 <main>
-<h1 class="text-center  text-success  ">Familias.</h1>
+<h1 class="text-title">Familias</h1>
 
 <div class="main-container">
-      <a class=" btn btn-primary " href="/save-family">Crear familias</a>
-
-
+      <a class="btn-add" href="/save-family">
+      Crear familias
+      <i class="gg-add"></i>
+      </a>
 <div class="row">
 
 {{#if hasFamily}}
 
 {{#each family as |fam|}}
 
-<div class="col-md-4 mt-5 mb-3">
-
-   <div class="card bg-dark text-light" style="width: 18rem;">
-
-    <div class="card-body">
-        <h5 required class="card-text text-info">Curso:{{fam.name}}</h5>
-
-      <a class=" btn btn-success" href="/edit-family/{{fam.id}}?edit=true">editar</a>       
-     
+<div class="cards">
+   <div class="card-container">
+    <div class="cd-container">
+      <div class="info">
+        <h5 required class="card-info">Curso: {{fam.name}}</h5>
+        <a class="btn btn-secondary btn-block" href="/edit-family/{{fam.id}}?edit=true">Editar</a>  
+        </div>
+        <div class="img-info">
+          <img class="img-edit" src="/assets/imgs/family-save-img.png">    
+        </div>     
     </div>
-
-
 </div>
 
 </div>
@@ -30,8 +30,10 @@
 {{/each}}
 
 {{else}}
-<div class="mt-4">
-    <h1 class=" text-danger ">No hay Familias creadas</h1>
+<div class="mt-container">
+  <img class="std-img" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR6B9LBWAAcbbEBA_kws7nEJ4WqYcQVVXuFz-OJaqz62H0Fk2t1">
+  <img class="std-img-require" src="https://www.desktopbackground.org/download/320x480/2011/04/11/186225_happy-family-wallpapers-hd-download-widescreen-resolution_1920x1200_h.jpg">
+  <h1 class="text-error">No hay familias creadas</h1>
 </div>
 {{/if}}
 

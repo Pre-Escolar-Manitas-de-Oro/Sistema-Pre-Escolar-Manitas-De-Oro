@@ -1,35 +1,26 @@
-<div class="row">
-
-  <div class="col-md-3"></div>
+<div class="row justify-content-center mt-5">
   <div class="col-md-6">
-
-    <div class="card">
-      <div class="card-header bg-dark text-white">
-        {{#if editMode}}Edicion{{else}}Creacion{{/if}} de Tutores
+    <div class="card border-0 shadow-lg rounded-lg">
+      <img src="https://blog.comparasoftware.com/wp-content/uploads/2022/08/organizacion-del-aula-4-1024x640.jpg" class="card-img-top rounded-top" alt="Imagen del card">
+      <div class="card-header bg-secondary text-white">
+        {{#if editMode}}Edición{{else}}Creación{{/if}} de Tutores
       </div>
 
       <div class="card-body">
-
         <form method="POST" action="{{#if editMode}}/edit-course{{else}}/save-course{{/if}}">
           <div class="mb-3">
-            <label for="name" class="form-label">Curso:</label>
-            <input type="text" class="form-control" id="name" name="Name"  required value="{{#if editMode}}{{course.name}}{{/if}}"/>
+            <label for="name" class="form-label">Curso</label>
+            <input type="text" class="form-control" id="name" name="Name" required value="{{#if editMode}}{{course.name}}{{/if}}">
           </div>
 
           {{#if editMode}}
-
-          <input type="hidden" name="coursesId" value="{{course.id}}">
-          
+            <input type="hidden" name="coursesId" value="{{course.id}}">
           {{/if}}
 
-          <button type="submit" class="btn btn-primary">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
-           <a href="/course" type="button" class="btn btn-warning">volver atras</a>
+          <button type="submit" class="btn btn-success">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
+          <a href="/course" class="btn btn-danger">Volver atrás</a>
         </form>
-
       </div>
     </div>
-
   </div>
-  <div class="col-md-6"></div>
-
 </div>

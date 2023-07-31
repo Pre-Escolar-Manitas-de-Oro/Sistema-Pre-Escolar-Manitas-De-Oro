@@ -1,8 +1,11 @@
 <main>
-<h1 class="text-center  text-success  ">Tutores.</h1>
+<h1 class="text-title">Tutores</h1>
 
 <div class="main-container">
-      <a class=" btn btn-primary " href="/save-tutor">Guardar Tutor</a>
+      <a class="btn-add" href="/save-tutor">
+      Guardar tutor
+      <i class="gg-add"></i>
+      </a>
 
 
 <div class="row">
@@ -11,30 +14,19 @@
 
 {{#each tutor as |tu|}}
 
-<div class="col-md-4 mt-5 mb-3">
-
-   <div class="card bg-dark text-light" style="width: 18rem;">
-
-    <div class="card-body">
-        <h5 required class="card-text text-info">Nombre:{{tu.name}}</h5>
-
-
+<div class="cards">
+   <div class="card-container">
+    <div class="cd-container">
+        <div class="info">
+        <p required class="card-info">Nombre: {{tu.name}}</p>
+        <p required class="card-info">Apellido: {{tu.lastname}}</p>
+        <p required class="card-info">Cédula: {{tu.cedula}}</p>
+        <a class="btn btn-secondary btn-block" href="/edit-tutor/{{tu.id}}?edit=true">Editar</a> 
+        </div>
+        <div class="img-info">
+        <img class="img-edit" src="/assets/imgs/tutorsave-img.png">    
+        </div>
     </div>
-
-    <div class="card-body">
-        <p required class="card-text text-light">Apellido: {{tu.lastname}}</p>
-
- 
-    </div>
-  <div class="card-body">
-        <p required class="card-text text-light">Cedula: {{tu.cedula}}</p>
-
-
-     <a class=" btn btn-success" href="/edit-tutor/{{tu.id}}?edit=true">editar</a>       
-         
-    </div>
-
-
 </div>
 
 </div>
@@ -42,8 +34,10 @@
 {{/each}}
 
 {{else}}
-<div class="mt-4">
-    <h1 class=" text-danger ">No hay cursos creados</h1>
+<div class="mt-container">
+    <img class="std-img" src="https://wallpaperaccess.com/full/344959.jpg">
+    <img class="std-img-require" src="https://images.unsplash.com/photo-1562564055-71e051d33c19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8dHV0b3J8ZW58MHx8MHx8fDA%3D&w=1000&q=80">
+    <h1 class="text-error">No hay cursos creados</h1>
 </div>
 {{/if}}
 
