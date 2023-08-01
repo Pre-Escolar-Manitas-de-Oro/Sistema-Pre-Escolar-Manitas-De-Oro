@@ -1,0 +1,35 @@
+<div class="row">
+
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+
+    <div class="card">
+      <div class="card-header bg-dark text-white">
+        {{#if editMode}}Edicion{{else}}Creacion{{/if}} de Años Escolares
+      </div>
+
+      <div class="card-body">
+
+        <form method="POST" action="{{#if editMode}}/edit-schoolyear{{else}}/save-schoolyear{{/if}}">
+          <div class="mb-3">
+            <label for="date" class="form-label">Año escolar:</label>
+            <input type="date" class="form-control" id="date" name="Date"  required value="{{#if editMode}}{{schoolyear.date}}{{/if}}"/>
+          </div>
+ 
+          {{#if editMode}}
+
+          <input type="hidden" name="schoolyearId" value="{{schoolyear.id}}">
+          
+          {{/if}}
+
+          <button type="submit" class="btn btn-primary">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
+           <a href="/schoolyear" type="button" class="btn btn-warning">volver atras</a>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-6"></div>
+
+</div>

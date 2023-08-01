@@ -1,0 +1,41 @@
+<main>
+<h1 class="text-center  text-success  ">Años Escolares.</h1>
+
+<div class="main-container">
+      <a class=" btn btn-primary " href="/save-schoolyear">Guardar Años Escolares</a>
+
+
+<div class="row">
+
+{{#if hasSchoolyear}}
+
+{{#each year as |y|}}
+
+<div class="col-md-4 mt-5 mb-3">
+
+   <div class="card bg-dark text-light" style="width: 18rem;">
+
+    <div class="card-body">
+        <h5 required class="card-text text-light">Año Escolar:{{y.date}}</h5>
+
+      <a class=" btn btn-success" href="/edit-schoolyear/{{y.id}}?edit=true">editar</a>       
+     
+    </div>
+
+
+</div>
+
+</div>
+
+{{/each}}
+
+{{else}}
+<div class="mt-4">
+    <h1 class=" text-danger ">No hay años escolares creados</h1>
+</div>
+{{/if}}
+
+</div>
+</div>
+
+</main>

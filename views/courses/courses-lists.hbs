@@ -19,6 +19,7 @@
     <div class="cd-container">
       <div class="info">
         <h5 required class="card-info">Curso: {{cou.name}}</h5>
+         <p  class="card-text">Año escolar: {{cou.schoolyear.dataValues.date}}</p>
         <a class="btn btn-secondary btn-block" href="/edit-course/{{cou.id}}?edit=true">editar</a>   
       </div>    
       <div class="img-info">
@@ -33,6 +34,10 @@
 {{/each}}
 
 {{else}}
+<div class="mt-container">
+  <img class="std-img" src="https://wallpaperaccess.com/full/200620.jpg">
+  <img class="std-img-require" src="https://images.pexels.com/photos/2675050/pexels-photo-2675050.jpeg?cs=srgb&dl=pexels-dids-2675050.jpg&fm=jpg">
+  <h1 class="text-error">No hay cursos creados</h1>
 <div class="mt-container">
   <img class="std-img" src="https://wallpaperaccess.com/full/200620.jpg">
   <img class="std-img-require" src="https://images.pexels.com/photos/2675050/pexels-photo-2675050.jpeg?cs=srgb&dl=pexels-dids-2675050.jpg&fm=jpg">
