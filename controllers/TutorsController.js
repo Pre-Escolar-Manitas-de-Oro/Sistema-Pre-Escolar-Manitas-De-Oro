@@ -8,7 +8,7 @@ exports.GetTutor = (req, res, next) => {
 
             //Se rederiza la vista dependiendo de su ubicacion.
             res.render("tutors/tutors-lists", {
-                pageTitle: "Tutors",
+                pageTitle: "Tutores",
                 tutorsActive: true,
                 tutor: Tutor,
                 hasTutor: Tutor.length > 0

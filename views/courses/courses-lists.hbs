@@ -1,8 +1,11 @@
 <main>
-<h1 class="text-center  text-success  ">Cursos.</h1>
+<h1 class="text-title">Cursos</h1>
 
 <div class="main-container">
-      <a class=" btn btn-primary " href="/save-course">Crear Curso</a>
+      <a class="btn-add" href="/save-course">
+      Crear curso
+      <i class="gg-add"></i>
+      </a>
 
 
 <div class="row">
@@ -11,17 +14,18 @@
 
 {{#each course as |cou|}}
 
-<div class="col-md-4 mt-5 mb-3">
-
-   <div class="card bg-dark text-light" style="width: 18rem;">
-
-    <div class="card-body">
-        <h5 required class="card-text text-info">Curso:{{cou.name}}</h5>
-
-      <a class=" btn btn-success" href="/edit-course/{{cou.id}}?edit=true">editar</a>       
-     
+<div class="cards">
+   <div class="card-container">
+    <div class="cd-container">
+      <div class="info">
+        <h5 required class="card-info">Curso: {{cou.name}}</h5>
+         <p  class="card-text">Año escolar: {{cou.schoolyear.dataValues.date}}</p>
+        <a class="btn btn-secondary btn-block" href="/edit-course/{{cou.id}}?edit=true">editar</a>   
+      </div>    
+      <div class="img-info">
+        <img class="img-edit" src="/assets/imgs/cursos-save-img.png">    
     </div>
-
+    </div>
 
 </div>
 
@@ -30,8 +34,10 @@
 {{/each}}
 
 {{else}}
-<div class="mt-4"></div>
-  <h1 class=" text-danger ">No hay cursos creados</h1>
+<div class="mt-container">
+  <img class="std-img" src="https://wallpaperaccess.com/full/200620.jpg">
+  <img class="std-img-require" src="https://images.pexels.com/photos/2675050/pexels-photo-2675050.jpeg?cs=srgb&dl=pexels-dids-2675050.jpg&fm=jpg">
+  <h1 class="text-error">No hay cursos creados</h1>
 </div>
 {{/if}}
 

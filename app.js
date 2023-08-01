@@ -18,6 +18,11 @@ const Tutors = require("./models/Tutors");
 
 const Students = require("./models/Students");
 
+const Users = require("./models/User");
+
+const Payments = require("./models/Payments");
+
+const School_Year = require("./models/Schoool_Year");
 
 
 //importar las rutas.
@@ -30,12 +35,14 @@ const courses = require("./routes/courses");
 
 const tutors = require("./routes/tutors");
 
+const schoolyears = require("./routes/schoolyear");
 
 
 //importar helpers.
 
 const comparador = require("./util/helpers/hbs/comparar");
 const compare = require("./util/helpers/hbs/compare");
+const SchoolYear = require("./models/Schoool_Year");
 
 app.engine('hbs', expressHbs.engine({
 
@@ -48,7 +55,7 @@ app.engine('hbs', expressHbs.engine({
         equals: compare.equals,
 
     },
-   
+
 }));
 
 app.set("view engine", "hbs");
@@ -64,6 +71,7 @@ app.use(student);
 app.use(courses);
 app.use(families);
 app.use(tutors);
+app.use(schoolyears);
 app.use("/", ErrorController.Get404);
 
 
@@ -73,15 +81,23 @@ app.use("/", ErrorController.Get404);
 Students.belongsTo(Courses, { constraint: true, onDelete: "CASCADE" });
 Courses.hasMany(Students);
 
-
 Students.belongsTo(Families, { constraint: true, onDelete: "CASCADE" });
 Families.hasMany(Students);
 
-Students.belongsTo(Tutors, { constraint: true, onDelete: "CASCADE" });
-Tutors.hasMany(Students);
+Courses.belongsTo(SchoolYear, { constraint: true, onDelete: "CASCADE" });
+SchoolYear.hasMany(Courses);
+
+Payments.belongsTo(SchoolYear, { constraint: true, onDelete: "CASCADE" });
+SchoolYear.hasMany(Payments);
+
+Payments.belongsTo(Students, { constraint: true, onDelete: "CASCADE" });
+Students.hasMany(Payments);
+
+Tutors.belongsTo(Families, { constraint: true, onDelete: "CASCADE" });
+Families.hasMany(Tutors);
 
 
-sequelize.sync( /*{alter: false}*/ ).then(function(result) {
+sequelize.sync({ alter: true }).then(function(result) {
 
     app.listen(44198);
 
