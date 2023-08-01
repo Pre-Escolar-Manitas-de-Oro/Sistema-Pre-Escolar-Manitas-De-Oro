@@ -1,0 +1,49 @@
+<main>
+<h1 class="text-title">Pagos</h1>
+
+<div class="main-container">
+      <a class="btn-add" href="/payments/form">
+      Guardar pago.
+      <i class="gg-add"></i>
+      </a>
+
+
+<div class="row">
+
+{{#if hasPayments}}
+
+{{#each payment as |pay|}}
+
+<div class="cards">
+   <div class="card-container">
+    <div class="cd-container">
+      <div class="info">
+        <h5  class="card-info">Fecha de pago: {{pay.date}}</h5>
+  <p  class="card-text">Año escolar: {{pay.schoolyear.dataValues.date}}</p>
+   <p  class="card-text">Monto: {{pay.monto}}</p>
+   <p  class="card-text">Concepto: {{pay.concepto}}</p>
+   <p  class="card-text">Número de recibo: {{pay.numero_recibo}}</p>
+   <p  class="card-text">Metodo de pago: {{pay.metodo}}</p>
+   <p  class="card-text">Estudiante: {{pay.student.dataValues.name}}</p>
+      </div>    
+    
+    </div>
+
+</div>
+
+</div>
+
+{{/each}}
+
+{{else}}
+<div class="mt-container">
+  <img class="std-img" src="https://wallpaperaccess.com/full/200620.jpg">
+  <img class="std-img-require" src="https://images.pexels.com/photos/2675050/pexels-photo-2675050.jpeg?cs=srgb&dl=pexels-dids-2675050.jpg&fm=jpg">
+  <h1 class="text-error">No hay pagos realizados</h1>
+
+{{/if}}
+
+</div>
+</div>
+
+</main>

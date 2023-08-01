@@ -1,0 +1,18 @@
+<!-- views/confirmation.hbs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ pageTitle }}</title>
+</head>
+<body>
+  <h1>Pago realizado con éxito</h1>
+  <p>Fecha: {{ payment.date }}</p>
+  <p>Monto: {{ payment.monto }}</p>
+  <p>Concepto: {{ payment.concepto }}</p>
+  <p>Número de recibo: {{ payment.numero_recibo}}</p>
+  <p>Método de pago: {{ payment.metodo}}</p>
+  <p>Estudiante: {{ payment.student.dataValues.name}}</p>
+   <p>Año Escolar: {{ payment.schoolyear.dataValues.date}}</p>
+</body>
+</html>

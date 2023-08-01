@@ -22,7 +22,7 @@ const Users = require("./models/User");
 
 const Payments = require("./models/Payments");
 
-const School_Year = require("./models/Schoool_Year");
+const SchoolYear = require("./models/Schoool_Year");
 
 
 //importar las rutas.
@@ -36,13 +36,13 @@ const courses = require("./routes/courses");
 const tutors = require("./routes/tutors");
 
 const schoolyears = require("./routes/schoolyear");
+const payments = require("./routes/payments");
 
 
 //importar helpers.
 
 const comparador = require("./util/helpers/hbs/comparar");
 const compare = require("./util/helpers/hbs/compare");
-const SchoolYear = require("./models/Schoool_Year");
 
 app.engine('hbs', expressHbs.engine({
 
@@ -72,6 +72,7 @@ app.use(courses);
 app.use(families);
 app.use(tutors);
 app.use(schoolyears);
+app.use(payments);
 app.use("/", ErrorController.Get404);
 
 

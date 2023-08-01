@@ -1,0 +1,61 @@
+ <main class="container mt-5">
+    <h1 class="mb-4">Registrar Pago</h1>
+    <form action="/payments" method="POST">
+      <div class="form-group">
+        <label for="date">Fecha:</label>
+        <input type="date" class="form-control" name="date" required>
+      </div>
+
+      <div class="form-group">
+        <label for="amount">Monto:</label>
+        <input type="number" step="0.01" class="form-control" name="amount" required>
+      </div>
+
+      <div class="form-group">
+        <label for="concept">Concepto:</label>
+        <input type="text" class="form-control" name="concept" required>
+      </div>
+
+      <div class="form-group">
+        <label for="receiptNumber">Número de Recibo:</label>
+        <input type="text" class="form-control" name="receiptNumber">
+      </div>
+
+      <div class="form-group">
+        <label for="method">Método:</label>
+        <select class="form-control" name="method" required>
+          <option value="efectivo">Efectivo</option>
+          <option value="tarjeta">Tarjeta de Crédito</option>
+          <option value="transferencia">Transferencia Bancaria</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="studentId">Estudiante:</label>
+        <select id="studentId" class="form-control" name="studentId" required>
+   <option selected >Seleccione un Estudiante</option>
+                    {{#each student as |st|}}
+
+                        
+                            <option value="{{st.id}}">{{st.name}}</option>
+                 
+                    {{/each}}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="schoolyearId">Año escolar:</label>
+        <select  id="schoolyearId" class="form-control" name="schoolyearId" required>
+<option selected >Seleccione un año escolar</option>
+                    {{#each schoolyear as |sy|}}
+
+              
+                            <option value="{{sy.id}}">{{sy.date}}</option>
+               
+                    {{/each}}
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-success">Realizar pago</button>
+    </form>
+  </main>
