@@ -3,7 +3,7 @@
 
     <div class="card">
       <div class="card-header bg-dark text-white">
-        {{#if editMode}}Edicion{{else}}Creacion{{/if}} de Tutores
+        {{#if editMode}}Edicion{{else}}Creacion{{/if}} de Cursos
       </div>
 
       <div class="card-body">
@@ -13,6 +13,8 @@
             <input type="text" class="form-control" id="name" name="Name" required value="{{#if editMode}}{{course.name}}{{/if}}">
           </div>
 
+          
+
  <div class="mb-3">
             <label for="schoolyear" class="form-label">Año escolar:</label>
             <select id="schoolyear" name="schoolyear" class="form-select" required>
@@ -20,9 +22,9 @@
                     {{#each schoolyear as |sy|}}
 
                         {{#if (equals sy.id ../courses.schoolyearId)}}
-                            <option value="{{sy.id}}" selected >{{sy.date}}</option>
+                            <option value="{{sy.id}}" selected >{{sy.dateunited}}</option>
                         {{else}}
-                            <option value="{{sy.id}}">{{sy.date}}</option>
+                            <option value="{{sy.id}}">{{sy.dateunited}}</option>
                         {{/if}}
                     {{/each}}
              </select>
