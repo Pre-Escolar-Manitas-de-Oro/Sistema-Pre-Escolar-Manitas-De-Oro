@@ -22,9 +22,14 @@ const Users = require("./models/User");
 
 const Payments = require("./models/Payments");
 
+const Batches = require("./models/Batches");
+
 const SchoolYear = require("./models/Schoool_Year");
 
 const Months = require("./models/Months");
+
+
+
 
 
 //importar las rutas.
@@ -101,8 +106,13 @@ Students.hasMany(Payments);
 Payments.belongsTo(Months, { constraint: true, onDelete: "CASCADE" });
 Months.hasMany(Payments);
 
+Payments.belongsTo(Batches, { constraint: true, onDelete: "CASCADE" });
+Batches.hasMany(Payments);
+
 Tutors.belongsTo(Families, { constraint: true, onDelete: "CASCADE" });
 Families.hasMany(Tutors);
+
+
 
 // Sincroniza el modelo "Mensualidad" para crear la tabla si no existe
 sequelize.query("SHOW TABLES LIKE 'months'")
@@ -137,6 +147,34 @@ sequelize.query("SHOW TABLES LIKE 'months'")
     .catch((error) => {
         console.error('Error al crear la tabla "mensualidad":', error);
     });
+
+    // Sincroniza el modelo "Batches" para crear la tabla si no existe
+sequelize.query("SHOW TABLES LIKE 'batches'")
+.then(([results, metadata]) => {
+    const tableExists = results.length > 0;
+    if (!tableExists) {
+        // La tabla no existe, proceder a crearla e insertar las tandas
+        return Batches.sync({ alter: true }) // Crea la tabla si no existe
+            .then(() => {
+                return Batches.bulkCreate([
+                    { name: 'Mensualidad' , price: '6000'},
+                    { name: 'Hasta las 2' , price: '9000'},
+                    { name: 'Tanda extendida' , price: '11000'},
+                ]);
+            });
+    } else {
+        // La tabla ya existe, no es necesario crearla ni insertar las tandas
+        return Promise.resolve();
+    }
+})
+.then(() => {
+
+    console.log('Tabla "tandas" creada e insertada correctamente.');
+})
+.catch((error) => {
+    console.error('Error al crear la tabla "tandas":', error);
+});
+
 
 
 sequelize.sync({ alter: true })

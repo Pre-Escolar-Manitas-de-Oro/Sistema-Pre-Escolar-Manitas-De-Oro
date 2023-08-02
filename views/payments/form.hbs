@@ -1,14 +1,10 @@
  <main class="container mt-5">
     <h1 class="mb-4">Registrar Pago</h1>
     <form action="/payments" method="POST">
-      <div class="form-group">
-        <label for="date">Fecha:</label>
-        <input type="date" class="form-control" name="date" required>
-      </div>
 
       <div class="form-group">
         <label for="amount">Monto:</label>
-        <input type="number" step="0.01" class="form-control" name="amount" required>
+        <input id='price' type="number" step="0.01" class="form-control" name="amount" required disabled readonly>
       </div>
 
       <div class="form-group">
@@ -25,10 +21,11 @@
         </select>
       </div>
 
+
       <div class="form-group">
         <label for="studentId">Estudiante:</label>
         <select id="studentId" class="form-control" name="studentId" required>
-   <option selected >Seleccione un Estudiante</option>
+        <option selected >Seleccione un Estudiante</option>
                     {{#each student as |st|}}
 
                         
@@ -41,7 +38,7 @@
       <div class="form-group">
         <label for="schoolyearId">Año escolar:</label>
         <select  id="schoolyearId" class="form-control" name="schoolyearId" required>
-<option selected >Seleccione un año escolar</option>
+        <option selected >Seleccione un año escolar</option>
                     {{#each schoolyear as |sy|}}
 
               
@@ -51,10 +48,24 @@
         </select>
       </div>
 
+      <div class="form-group">
+        <label for="batches">Tanda:</label>
+        <select  id="batches" class="form-control" name="batches" required>
+          <option selected >Seleccione una tanda</option>
+                    {{#each batches as |bt|}}
+
+              
+                            <option value="{{bt.id}}">{{bt.name}}</option>
+               
+                    {{/each}}
+        </select>
+      </div>
+        
+
          <div class="form-group">
         <label for="monthId">Mes que se esta pagando:</label>
         <select  id="monthId" class="form-control" name="monthId" required>
-<option selected >Seleccione un año escolar</option>
+                  <option selected >Seleccione un año escolar</option>
                     {{#each month as |mo|}}
 
               
@@ -67,3 +78,33 @@
       <button type="submit" class="btn btn-success">Realizar pago</button>
     </form>
   </main>
+
+<script>
+  // Obtener referencias a los elementos
+  const selectOptions = document.getElementById('batches');
+  const textInput = document.getElementById('price');
+
+  // Función para actualizar el campo de texto
+  function updateTextInput() {
+    // Obtener el valor seleccionado del select
+    const selectedValue = selectOptions.value;
+
+    // Asignar el valor seleccionado al campo de texto
+    if (selectedValue === '1') {
+      textInput.value = '6000';
+    } else if (selectedValue === '2') {
+      textInput.value = '9000';
+    } else if (selectedValue === '3') {
+      textInput.value = '11000';
+    } else {
+      // Si el valor seleccionado no coincide con ninguna opción, puedes hacer algo aquí
+      textInput.value = ''; // Por ejemplo, dejar el campo de texto en blanco
+    }
+  }
+
+  // Agregar un escuchador de eventos para el cambio en el select
+  selectOptions.addEventListener('change', updateTextInput);
+
+  // Actualizar el campo de texto inicialmente
+  updateTextInput();
+</script>

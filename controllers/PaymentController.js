@@ -3,6 +3,7 @@ const Payment = require("../models/Payments");
 const Student = require("../models/Students");
 const Month = require("../models/Months");
 const SchoolYear = require("../models/Schoool_Year");
+const Batches = require("../models/Batches");
 const { v4: uuidv4 } = require('uuid');
 
 // Mostrar el formulario para registrar pagos
@@ -21,30 +22,40 @@ exports.getPaymentForm = (req, res, next) => {
                 Month.findAll().then((result) => {
 
                     const month = result.map((result) => result.dataValues);
-                    Payment.findAll({
-                        include: [
-                            { model: Student },
-                            { model: SchoolYear },
-                            { model: Month },
-                        ]
-                    }).then((result) => {
+                    
+                    Batches.findAll().then((result) => {
 
-                        const payment = result.map((result) => result.dataValues);
+                        const batches = result.map((result) => result.dataValues);
+                        
+                    
+                        Payment.findAll({
+                            include: [
+                                { model: Student },
+                                { model: SchoolYear },
+                                { model: Month },
+                                { model: Batches },
+                            ]
+                        }).then((result) => {
 
-                        //Se rederiza la vista dependiendo de su ubicacion.
-                        res.render("payments/form", {
-                            pageTitle: "Registro de pago",
-                            student: students,
-                            payment: payment,
-                            schoolyear: schoolyear,
-                            month: month,
-                            hasPayments: payment.length > 0,
-                            hasStudents: students.length > 0,
+                            const payment = result.map((result) => result.dataValues);
+
+                            console.log(payment.dataValues);
+
+                            //Se rederiza la vista dependiendo de su ubicacion.
+                            res.render("payments/form", {
+                                pageTitle: "Registro de pago",
+                                student: students,
+                                payment: payment,
+                                batches: batches,
+                                schoolyear: schoolyear,
+                                month: month,
+                                hasPayments: payment.length > 0,
+                                hasStudents: students.length > 0,
+                            });
+
+
                         });
-
-
                     });
-
                 });
             });
         });
@@ -104,14 +115,31 @@ function generateReceiptNumber() {
 
     return receiptNumber;
 }
+
+function obtenerFechaHoraActual() {
+    const fechaHoraActual = new Date();
+    
+    const año = fechaHoraActual.getFullYear();
+    const mes = String(fechaHoraActual.getMonth() + 1).padStart(2, '0');
+    const dia = String(fechaHoraActual.getDate()).padStart(2, '0');
+    
+    const hora = String(fechaHoraActual.getHours()).padStart(2, '0');
+    const minutos = String(fechaHoraActual.getMinutes()).padStart(2, '0');
+    const segundos = String(fechaHoraActual.getSeconds()).padStart(2, '0');
+    
+    const fechaHoraFormateada = `${año}-${mes}-${dia} ${hora}:${minutos}:${segundos}`;
+    return fechaHoraFormateada;
+  }
+
 // Guardar el pago en la base de datos
 exports.savePayment = (req, res) => {
-    const { date, amount, concept, method, studentId, schoolyearId, monthId } = req.body;
+    const {  amount, concept, method, studentId, schoolyearId, monthId } = req.body;
 
     const receiptNumber = generateReceiptNumber();
+    const currentDate = obtenerFechaHoraActual();
 
     Payment.create({
-            date: date,
+            date: currentDate,
             monto: amount,
             concepto: concept,
             numero_recibo: receiptNumber,
