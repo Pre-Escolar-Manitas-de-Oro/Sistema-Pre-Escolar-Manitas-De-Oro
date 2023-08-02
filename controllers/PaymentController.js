@@ -135,6 +135,8 @@ function obtenerFechaHoraActual() {
 exports.savePayment = (req, res) => {
     const {  amount, concept, method, studentId, schoolyearId, monthId } = req.body;
 
+    console.log(amount)
+
     const receiptNumber = generateReceiptNumber();
     const currentDate = obtenerFechaHoraActual();
 

@@ -4,7 +4,8 @@
 
       <div class="form-group">
         <label for="amount">Monto:</label>
-        <input id='price' type="number" step="0.01" class="form-control" name="amount" required disabled readonly>
+        <input id='mont' type="text" class="form-control" name="mont" required disabled>
+         <input id='amount' type="hidden" class="form-control" name="amount" required >
       </div>
 
       <div class="form-group">
@@ -82,7 +83,8 @@
 <script>
   // Obtener referencias a los elementos
   const selectOptions = document.getElementById('batches');
-  const textInput = document.getElementById('price');
+  const textInputView = document.getElementById('mont');
+  const textInput = document.getElementById('amount');
 
   // Función para actualizar el campo de texto
   function updateTextInput() {
@@ -91,11 +93,14 @@
 
     // Asignar el valor seleccionado al campo de texto
     if (selectedValue === '1') {
-      textInput.value = '6000';
+      textInputView.value = '6000.00';
+      textInput.value = '6000.00';
     } else if (selectedValue === '2') {
-      textInput.value = '9000';
+      textInputView.value = '9000.00';
+      textInput.value = '9000.00';
     } else if (selectedValue === '3') {
-      textInput.value = '11000';
+      textInputView.value = '11000.00';
+      textInput.value = '11000.00';
     } else {
       // Si el valor seleccionado no coincide con ninguna opción, puedes hacer algo aquí
       textInput.value = ''; // Por ejemplo, dejar el campo de texto en blanco
