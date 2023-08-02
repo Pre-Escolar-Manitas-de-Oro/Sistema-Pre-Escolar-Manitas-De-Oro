@@ -50,11 +50,13 @@ exports.PostSaveSchoolyear = (req, res, next) => {
 
     //Se toma el Nombre que se le asigna en la vista.
     const date = req.body.Date;
-
+    const date2 = req.body.Date2;
 
 
     SchoolYear.create({
         date: date,
+        date2: date2,
+        dateunited: date + "-" + date2,
     }).then((result) => {
 
         return res.redirect("/schoolyear");
@@ -108,6 +110,7 @@ exports.getEditSchoolyear = (req, res, next) => {
 //Guarda los cursos al momento de presionar el boton guardar.
 exports.postEditSchoolyear = (req, res, next) => {
     const date = req.body.Date;
+    const date2 = req.body.Date2;
     const id = req.body.schoolyearId;
 
     SchoolYear.findOne({ where: { id: id } }).then((result) => {
@@ -119,7 +122,7 @@ exports.postEditSchoolyear = (req, res, next) => {
         }
 
 
-        SchoolYear.update({ date: date, }, { where: { id: id } })
+        SchoolYear.update({ date: date, date2: date2 }, { where: { id: id } })
             .then((result) => {
                 return res.redirect("/schoolyear");
             }).catch((err) => {

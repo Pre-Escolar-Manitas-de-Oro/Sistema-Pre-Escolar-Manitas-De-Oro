@@ -24,6 +24,8 @@ const Payments = require("./models/Payments");
 
 const SchoolYear = require("./models/Schoool_Year");
 
+const Months = require("./models/Months");
+
 
 //importar las rutas.
 
@@ -43,6 +45,7 @@ const payments = require("./routes/payments");
 
 const comparador = require("./util/helpers/hbs/comparar");
 const compare = require("./util/helpers/hbs/compare");
+
 
 app.engine('hbs', expressHbs.engine({
 
@@ -94,16 +97,54 @@ SchoolYear.hasMany(Payments);
 Payments.belongsTo(Students, { constraint: true, onDelete: "CASCADE" });
 Students.hasMany(Payments);
 
+
+Payments.belongsTo(Months, { constraint: true, onDelete: "CASCADE" });
+Months.hasMany(Payments);
+
 Tutors.belongsTo(Families, { constraint: true, onDelete: "CASCADE" });
 Families.hasMany(Tutors);
 
+// Sincroniza el modelo "Mensualidad" para crear la tabla si no existe
+sequelize.query("SHOW TABLES LIKE 'months'")
+    .then(([results, metadata]) => {
+        const tableExists = results.length > 0;
+        if (!tableExists) {
+            // La tabla no existe, proceder a crearla e insertar los meses
+            return Months.sync({ alter: true }) // Crea la tabla si no existe
+                .then(() => {
+                    return Months.bulkCreate([
+                        { month: 'Septiembre' },
+                        { month: 'Octubre' },
+                        { month: 'Noviembre' },
+                        { month: 'Diciembre' },
+                        { month: 'Enero' },
+                        { month: 'Febrero' },
+                        { month: 'Marzo' },
+                        { month: 'Abril' },
+                        { month: 'Mayo' },
+                        { month: 'Junio' },
+                    ]);
+                });
+        } else {
+            // La tabla ya existe, no es necesario crearla ni insertar los meses
+            return Promise.resolve();
+        }
+    })
+    .then(() => {
 
-sequelize.sync({ alter: true }).then(function(result) {
+        console.log('Tabla "mensualidad" creada e insertada correctamente.');
+    })
+    .catch((error) => {
+        console.error('Error al crear la tabla "mensualidad":', error);
+    });
 
-    app.listen(44198);
 
-}).catch(err => {
-
-    console.log(err);
-
-})
+sequelize.sync({ alter: true })
+    .then(() => {
+        // Una vez que se hayan sincronizado todos los modelos, puedes continuar con el código
+        app.listen(44198);
+        console.log('Todas las tablas creadas e insertadas correctamente.');
+    })
+    .catch((error) => {
+        console.error('Error al sincronizar y crear las tablas:', error);
+    });

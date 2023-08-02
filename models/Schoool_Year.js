@@ -11,9 +11,19 @@ const SchoolYear = sequelize.define("schoolyear", {
         primaryKey: true,
     },
     date: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.STRING,
         allowNull: false
     },
+    date2: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+
+    dateunited: {
+        type: Sequelize.STRING,
+        allowNull: false
+
+    }
 
 });
 

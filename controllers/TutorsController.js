@@ -1,8 +1,9 @@
 const Tutor = require("../models/Tutors");
+const Family = require("../models/Families");
 //Obtener la vista del listados
 exports.GetTutor = (req, res, next) => {
 
-    Tutor.findAll()
+    Tutor.findAll({ include: [{ model: Family }] })
         .then((result) => {
             const Tutor = result.map((result) => result.dataValues);
 
@@ -23,24 +24,25 @@ exports.GetTutor = (req, res, next) => {
 
 //obtener la vista de guardar
 exports.GetSaveTutor = (req, res, next) => {
+    Family.findAll().then((result1) => {
+        const family = result1.map((result1) => result1.dataValues);
+
+        Tutor.findAll({ include: [{ model: Family }] }).then((result) => {
+
+            const tutor = result.map((result) => result.dataValues);
 
 
-    Tutor.findAll().then((result) => {
+            res.render("tutors/save-tutor", {
 
-        const tutor = result.map((result) => result.dataValues);
+                pageTitle: "Administra Tutores.",
+                tutor: tutor,
+                hasTutor: tutor.length > 0,
+                family: family
 
-
-        res.render("tutors/save-tutor", {
-
-            pageTitle: "Administra Tutores.",
-            tutor: tutor,
-            hasTutor: tutor.length > 0,
-
+            });
 
         });
-
     });
-
 
 };
 
@@ -51,12 +53,13 @@ exports.PostSaveTutor = (req, res, next) => {
     const nombre = req.body.Name;
     const cedula = req.body.Cedula;
     const apellido = req.body.LastName;
+    const familia = req.body.familys;
 
     Tutor.create({
         name: nombre,
         cedula: cedula,
         lastname: apellido,
-
+        familyId: familia,
 
     }).then((result) => {
 
@@ -113,6 +116,7 @@ exports.postEditTutor = (req, res, next) => {
     const name = req.body.Name;
     const lastname = req.body.LastName;
     const cedula = req.body.Cedula;
+    const familyId = req.body.familys;
     const id = req.body.tutorId;
 
     Tutor.findOne({ where: { id: id } }).then((result) => {
@@ -124,7 +128,7 @@ exports.postEditTutor = (req, res, next) => {
         }
 
 
-        Tutor.update({ name: name, lastname: lastname, cedula: cedula }, { where: { id: id } })
+        Tutor.update({ name: name, lastname: lastname, cedula: cedula, familyId: familyId }, { where: { id: id } })
             .then((result) => {
                 return res.redirect("/tutor");
             }).catch((err) => {

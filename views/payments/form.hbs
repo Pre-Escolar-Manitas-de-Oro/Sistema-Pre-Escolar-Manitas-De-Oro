@@ -17,11 +17,6 @@
       </div>
 
       <div class="form-group">
-        <label for="receiptNumber">Número de Recibo:</label>
-        <input type="text" class="form-control" name="receiptNumber">
-      </div>
-
-      <div class="form-group">
         <label for="method">Método:</label>
         <select class="form-control" name="method" required>
           <option value="efectivo">Efectivo</option>
@@ -50,7 +45,20 @@
                     {{#each schoolyear as |sy|}}
 
               
-                            <option value="{{sy.id}}">{{sy.date}}</option>
+                            <option value="{{sy.id}}">{{sy.dateunited}}</option>
+               
+                    {{/each}}
+        </select>
+      </div>
+
+         <div class="form-group">
+        <label for="monthId">Mes que se esta pagando:</label>
+        <select  id="monthId" class="form-control" name="monthId" required>
+<option selected >Seleccione un año escolar</option>
+                    {{#each month as |mo|}}
+
+              
+                            <option value="{{mo.id}}">{{mo.month}}</option>
                
                     {{/each}}
         </select>

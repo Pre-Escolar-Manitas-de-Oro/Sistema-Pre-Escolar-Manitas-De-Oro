@@ -1,35 +1,58 @@
-<div class="row">
+<main>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-dark text-white">
+          {{#if editMode}}Edicion{{else}}Creacion{{/if}} de Años Escolares
+        </div>
+        <div class="card-body">
+          <form method="POST" action="{{#if editMode}}/edit-schoolyear{{else}}/save-schoolyear{{/if}}">
+            <div class="mb-3">
+              <label for="date" class="form-label">Primer año:</label>
+              <input type="number" class="form-control" id="date" name="Date"
+                placeholder="Ingrese el primer año (ejemplo: 2023)" required min="2010" max="2099"
+                oninput="this.value = this.value.slice(0, 4)" {{#if editMode}}value="{{schoolyear.date}}"{{/if}} />
+            </div>
 
-  <div class="col-md-3"></div>
-  <div class="col-md-6">
+            <div class="mb-3">
+              <label for="date2" class="form-label">Segundo año:</label>
+              <input type="number" class="form-control" id="date2" name="Date2"
+                placeholder="Ingrese el segundo año (ejemplo: 2024)" required min="2010" max="2099"
+                oninput="this.value = this.value.slice(0, 4)" {{#if editMode}}value="{{schoolyear.date2}}"{{/if}} />
+            </div>
 
-    <div class="card">
-      <div class="card-header bg-dark text-white">
-        {{#if editMode}}Edicion{{else}}Creacion{{/if}} de Años Escolares
-      </div>
+            {{#if editMode}}
+            <input type="hidden" name="schoolyearId" value="{{schoolyear.id}}">
+            {{/if}}
 
-      <div class="card-body">
-
-        <form method="POST" action="{{#if editMode}}/edit-schoolyear{{else}}/save-schoolyear{{/if}}">
-          <div class="mb-3">
-            <label for="date" class="form-label">Año escolar:</label>
-            <input type="date" class="form-control" id="date" name="Date"  required value="{{#if editMode}}{{schoolyear.date}}{{/if}}"/>
-          </div>
- 
-          {{#if editMode}}
-
-          <input type="hidden" name="schoolyearId" value="{{schoolyear.id}}">
-          
-          {{/if}}
-
-          <button type="submit" class="btn btn-primary">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
-           <a href="/schoolyear" type="button" class="btn btn-warning">volver atras</a>
-        </form>
-
+            <button type="submit" class="btn btn-primary">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
+            <a href="/schoolyear" type="button" class="btn btn-warning">volver atras</a>
+          </form>
+        </div>
       </div>
     </div>
-
+    <div class="col-md-6"></div>
   </div>
-  <div class="col-md-6"></div>
+</main>
 
-</div>
+<script>
+    const inputDate = document.getElementById('date');
+    const inputDate2 = document.getElementById('date2');
+
+    inputDate.addEventListener('input', validateYears);
+    inputDate2.addEventListener('input', validateYears);
+
+    function validateYears() {
+        const year1 = inputDate.value;
+        const year2 = inputDate2.value;
+
+        if (year1 === year2) {
+            inputDate.setCustomValidity('No puede ingresar el mismo año en ambos campos.');
+            inputDate2.setCustomValidity('No puede ingresar el mismo año en ambos campos.');
+        } else {
+            inputDate.setCustomValidity('');
+            inputDate2.setCustomValidity('');
+        }
+    }
+</script>
