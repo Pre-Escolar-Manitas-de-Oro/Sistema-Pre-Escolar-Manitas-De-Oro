@@ -1,23 +1,23 @@
-<div class="row justify-content-center mt-5">
+<div class="form-container row justify-content-center mt-5">
   <div class="col-md-6">
 
     <div class="card">
-      <div class="card-header bg-dark text-white">
-        {{#if editMode}}Edicion{{else}}Creacion{{/if}} de Cursos
+      <div class="form-ContainerCourse text-center">
+        <p class="form-text">{{#if editMode}}Edicion{{else}}Creacion{{/if}} de Cursos</p>
       </div>
 
-      <div class="card-body">
+      <div class="form-info-container card-body shadow-lg p-3">
         <form method="POST" action="{{#if editMode}}/edit-course{{else}}/save-course{{/if}}">
           <div class="mb-3">
-            <label for="name" class="form-label">Curso</label>
+            <label for="name" class="card-info">Curso</label>
             <input type="text" class="form-control" id="name" name="Name" required value="{{#if editMode}}{{course.name}}{{/if}}">
           </div>
 
           
 
- <div class="mb-3">
-            <label for="schoolyear" class="form-label">Año escolar:</label>
-            <select id="schoolyear" name="schoolyear" class="form-select" required>
+        <div class="mb-3">
+            <label for="schoolyear" class="card-info mt-2">Año escolar</label>
+            <select id="schoolyear" name="schoolyear" class="form-control" required>
                 <option value="" {{#if editMode}}{{else}} selected {{/if}}>Seleccione un año escolar</option>
                     {{#each schoolyear as |sy|}}
 
@@ -34,8 +34,8 @@
             <input type="hidden" name="coursesId" value="{{course.id}}">
           {{/if}}
 
-          <button type="submit" class="btn btn-success">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
-          <a href="/course" class="btn btn-danger">Volver atrás</a>
+          <button type="submit" class="btn btn-succ mt-3">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
+          <a href="/course" class="btn btn-dang mt-3">Volver atrás</a>
         </form>
       </div>
     </div>

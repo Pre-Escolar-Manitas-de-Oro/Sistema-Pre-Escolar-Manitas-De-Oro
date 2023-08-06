@@ -1,28 +1,28 @@
-<div class="row justify-content-center mt-5">
+<div class="form-container row justify-content-center mt-5">
   <div class="col-md-6">
     <div class="card border-0 shadow-lg rounded-lg">
-      <div class="card-header bg-secondary text-white text-center">
-        {{#if editMode}}Edición{{else}}Creación{{/if}} de Tutores
+      <div class="form-ContainerTutors text-center">
+      <p class="form-text">{{#if editMode}}Edición{{else}}Creación{{/if}} de Tutores</p>
       </div>
 
-      <div class="card-body">
+      <div class="form-info-container card-body shadow-lg p-3">
         <form method="POST" action="{{#if editMode}}/edit-tutor{{else}}/save-tutor{{/if}}">
           <div class="mb-3">
-            <label for="name" class="form-label">Nombre</label>
+            <label for="name" class="card-info">Nombre</label>
             <input type="text" class="form-control" id="name" name="Name" required value="{{#if editMode}}{{tutor.name}}{{/if}}">
           </div>
           <div class="mb-3">
-            <label for="lastname" class="form-label">Apellido</label>
+            <label for="lastname" class="card-info">Apellido</label>
             <input type="text" class="form-control" id="lastname" name="LastName" required value="{{#if editMode}}{{tutor.lastname}}{{/if}}">
           </div>
           <div class="mb-3">
-            <label for="cedula" class="form-label">Cédula</label>
+            <label for="cedula" class="card-info">Cédula</label>
             <input type="text" class="form-control" id="cedula" name="Cedula" required value="{{#if editMode}}{{tutor.cedula}}{{/if}}">
           </div>
 
            <div class="mb-3">
-            <label for="familys" class="form-label">Familias</label>
-            <select id="familys" name="familys" class="form-select" required>
+            <label for="familys" class="card-info">Familias</label>
+            <select id="familys" name="familys" class="form-control" required>
               <option value="" {{#if editMode}}{{else}} selected {{/if}}>Seleccione una familia</option>
               {{#each family as |fam|}}
               {{#if (equals fam.id ../tutors.familyId)}}
@@ -38,8 +38,8 @@
           <input type="hidden" name="tutorId" value="{{tutor.id}}">
           {{/if}}
 
-          <button type="submit" class="btn btn-success">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
-          <a href="/tutor" class="btn btn-danger">Volver atrás</a>
+          <button type="submit" class="btn btn-succ mt-3">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
+          <a href="/tutor" class="btn btn-dang mt-3">Volver atrás</a>
         </form>
       </div>
     </div>

@@ -1,28 +1,27 @@
-<div class="row justify-content-center mt-5">
+<div class="form-container row justify-content-center mt-5">
   <div class="col-md-6">
     {{#if hasFamily}}
     <div class="card">
-      <div class="card-header bg-secondary text-white text-center">
-        {{#if editMode}}Edición{{else}}Creación{{/if}} de estudiantes
+      <div class="form-ContainerStudent text-center">
+        <p class="form-text">{{#if editMode}}Edición{{else}}Creación{{/if}} de estudiantes</p>
       </div>
-      <div class="card-body">
-
+      <div class="form-info-container card-body shadow-lg p-3">
         <form method="POST" action="{{#if editMode}}/edit-student{{else}}/save-student{{/if}}">
-          <div class="mb-3">
-            <label for="name" class="form-label">Nombre</label>
+          <div class="mb-3 mt-2">
+            <label for="name" class="card-info">Nombre</label>
             <input type="text" class="form-control" id="name" name="name" required value="{{#if editMode}}{{student.name}}{{/if}}">
           </div>
           <div class="mb-3">
-            <label for="lastname" class="form-label">Apellidos</label>
+            <label for="lastname" class="card-info">Apellidos</label>
             <input type="text" class="form-control" id="lastname" name="lastname" required value="{{#if editMode}}{{student.lastname}}{{/if}}">
           </div>
           <div class="mb-3">
-            <label for="birthdate" class="form-label">Fecha de cumpleaños</label>
+            <label for="birthdate" class="card-info">Fecha de cumpleaños</label>
             <input type="date" class="form-control" id="birthdate" name="birthdate" required value="{{#if editMode}}{{student.birthdate}}{{/if}}">
           </div>
           <div class="mb-3">
-            <label for="familys" class="form-label">Familias</label>
-            <select id="familys" name="familys" class="form-select" required>
+            <label for="familys" class="card-info">Familias</label>
+            <select id="familys" name="familys" class="form-control" required>
               <option value="" {{#if editMode}}{{else}} selected {{/if}}>Seleccione una familia</option>
               {{#each family as |fam|}}
               {{#if (equals fam.id ../student.familyId)}}
@@ -38,8 +37,8 @@
           <input type="hidden" name="studentId" value="{{student.id}}">
           {{/if}}
 
-          <button type="submit" class="btn btn-success">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
-          <a href="/admin-student" class="btn btn-danger">Volver atrás</a>
+          <button type="submit" class="btn btn-succ mt-3">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
+          <a href="/admin-student" class="btn btn-dang mt-3">Volver atrás</a>
         </form>
       </div>
     </div>
