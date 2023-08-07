@@ -1,30 +1,35 @@
- <main class="container mt-5">
-    <h1 class="mb-4">Registrar Pago</h1>
+ <div class="form-container row justify-content-center mt-5">
+  <div class="col-md-7">
+    <div class="card">
+    <div class="form-ContainerPay text-center">
+          <p class="form-text2">Registrar pago</p>
+    </div>
+    </div>
+    <div class="form-info-container card-body shadow-lg p-3">
     <form action="/payments" method="POST">
-
-      <div class="form-group">
-        <label for="amount">Monto:</label>
+      <div class="mb-3 mt-2">
+        <label for="amount" class="card-info">Monto</label>
         <input id='mont' type="text" class="form-control" name="mont" required disabled>
          <input id='amount' type="hidden" class="form-control" name="amount" required >
       </div>
 
-      <div class="form-group">
-        <label for="concept">Concepto:</label>
+      <div class="mb-3 mt-2">
+        <label for="concept" class="card-info">Concepto</label>
         <input type="text" class="form-control" name="concept" required>
       </div>
 
-      <div class="form-group">
-        <label for="method">Método:</label>
+      <div class="mb-3 mt-2">
+        <label for="method" class="card-info">Método</label>
         <select class="form-control" name="method" required>
-          <option value="efectivo">Efectivo</option>
-          <option value="tarjeta">Tarjeta de Crédito</option>
-          <option value="transferencia">Transferencia Bancaria</option>
+          <option value="efectivo" class="card-info">Efectivo</option>
+          <option value="tarjeta" class="card-info">Tarjeta de Crédito</option>
+          <option value="transferencia" class="card-info">Transferencia Bancaria</option>
         </select>
       </div>
 
 
-      <div class="form-group">
-        <label for="studentId">Estudiante:</label>
+      <div class="mb-3 mt-2">
+        <label for="studentId" class="card-info">Estudiante</label>
         <select id="studentId" class="form-control" name="studentId" required>
         <option selected >Seleccione un Estudiante</option>
                     {{#each student as |st|}}
@@ -36,8 +41,8 @@
         </select>
       </div>
 
-      <div class="form-group">
-        <label for="schoolyearId">Año escolar:</label>
+      <div class="mb-3 mt-2">
+        <label for="schoolyearId" class="card-info">Año escolar</label>
         <select  id="schoolyearId" class="form-control" name="schoolyearId" required>
         <option selected >Seleccione un año escolar</option>
                     {{#each schoolyear as |sy|}}
@@ -49,8 +54,8 @@
         </select>
       </div>
 
-      <div class="form-group">
-        <label for="batches">Tanda:</label>
+      <div class="mb-3 mt-2">
+        <label for="batches" class="card-info">Tanda</label>
         <select  id="batches" class="form-control" name="batches" required>
           <option selected >Seleccione una tanda</option>
                     {{#each batches as |bt|}}
@@ -63,8 +68,8 @@
       </div>
         
 
-         <div class="form-group">
-        <label for="monthId">Mes que se esta pagando:</label>
+         <div class="mb-3 mt-2">
+        <label for="monthId" class="card-info">Mes que se está pagando</label>
         <select  id="monthId" class="form-control" name="monthId" required>
                   <option selected >Seleccione un año escolar</option>
                     {{#each month as |mo|}}
@@ -76,9 +81,11 @@
         </select>
       </div>
 
-      <button type="submit" class="btn btn-success">Realizar pago</button>
+      <button type="submit" class="btn btn-succ mt-3">Realizar pago</button>
     </form>
-  </main>
+    </div>
+  </div>
+  </div>
 
 <script>
   // Obtener referencias a los elementos

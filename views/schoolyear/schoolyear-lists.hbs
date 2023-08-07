@@ -1,9 +1,11 @@
 <main>
-<h1 class="text-center  text-success  ">Años Escolares.</h1>
+<h1 class="text-title">Años escolares</h1>
 
 <div class="main-container">
-      <a class=" btn btn-primary " href="/save-schoolyear">Guardar Años Escolares</a>
-
+      <a class="btn-add2" href="/save-schoolyear">
+      Guardar años escolares
+      <i class="gg-add"></i>
+      </a>
 
 <div class="row">
 
@@ -30,8 +32,10 @@
 {{/each}}
 
 {{else}}
-<div class="mt-4">
-    <h1 class=" text-danger ">No hay años escolares creados</h1>
+<div class="mt-container">
+  <img class="std-img" src="/assets/imgs/schoolYear-error-img.jpg">
+  <img class="std-img-require" src="/assets/imgs/schoolYear-img-error-required.avif">
+    <h1 class="text-error">No hay años escolares creados</h1>
 </div>
 {{/if}}
 

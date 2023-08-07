@@ -1,22 +1,22 @@
 <main>
-  <div class="row">
+  <div class="form-container row  mt-5">
     <div class="col-md-3"></div>
     <div class="col-md-6">
       <div class="card">
-        <div class="card-header bg-dark text-white">
-          {{#if editMode}}Edicion{{else}}Creacion{{/if}} de Años Escolares
+        <div class="form-ContainerSY text-center">
+          <p class="form-text">{{#if editMode}}Edicion{{else}}Creación{{/if}} de años escolares</p>
         </div>
-        <div class="card-body">
+        <div class="form-info-container card-body shadow-lg p-3">
           <form method="POST" action="{{#if editMode}}/edit-schoolyear{{else}}/save-schoolyear{{/if}}">
             <div class="mb-3">
-              <label for="date" class="form-label">Primer año:</label>
+              <label for="date" class="card-info">Primer año</label>
               <input type="number" class="form-control" id="date" name="Date"
                 placeholder="Ingrese el primer año (ejemplo: 2023)" required min="2010" max="2099"
                 oninput="this.value = this.value.slice(0, 4)" {{#if editMode}}value="{{schoolyear.date}}"{{/if}} />
             </div>
 
             <div class="mb-3">
-              <label for="date2" class="form-label">Segundo año:</label>
+              <label for="date2" class="card-info">Segundo año</label>
               <input type="number" class="form-control" id="date2" name="Date2"
                 placeholder="Ingrese el segundo año (ejemplo: 2024)" required min="2010" max="2099"
                 oninput="this.value = this.value.slice(0, 4)" {{#if editMode}}value="{{schoolyear.date2}}"{{/if}} />
@@ -26,8 +26,8 @@
             <input type="hidden" name="schoolyearId" value="{{schoolyear.id}}">
             {{/if}}
 
-            <button type="submit" class="btn btn-primary">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
-            <a href="/schoolyear" type="button" class="btn btn-warning">volver atras</a>
+            <button type="submit" class="btn btn-succ mt-3">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
+            <a href="/schoolyear" type="button" class="btn btn-dang mt-3">volver atras</a>
           </form>
         </div>
       </div>
