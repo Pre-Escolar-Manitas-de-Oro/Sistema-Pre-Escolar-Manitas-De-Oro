@@ -5,6 +5,8 @@ const Month = require("../models/Months");
 const SchoolYear = require("../models/Schoool_Year");
 const Batches = require("../models/Batches");
 const { v4: uuidv4 } = require('uuid');
+const fs = require('fs');
+const { PDFDocument, rgb } = require('pdf-lib');
 
 // Mostrar el formulario para registrar pagos
 exports.getPaymentForm = (req, res, next) => {
@@ -22,12 +24,12 @@ exports.getPaymentForm = (req, res, next) => {
                 Month.findAll().then((result) => {
 
                     const month = result.map((result) => result.dataValues);
-                    
+
                     Batches.findAll().then((result) => {
 
                         const batches = result.map((result) => result.dataValues);
-                        
-                    
+
+
                         Payment.findAll({
                             include: [
                                 { model: Student },
@@ -118,22 +120,22 @@ function generateReceiptNumber() {
 
 function obtenerFechaHoraActual() {
     const fechaHoraActual = new Date();
-    
+
     const año = fechaHoraActual.getFullYear();
     const mes = String(fechaHoraActual.getMonth() + 1).padStart(2, '0');
     const dia = String(fechaHoraActual.getDate()).padStart(2, '0');
-    
+
     const hora = String(fechaHoraActual.getHours()).padStart(2, '0');
     const minutos = String(fechaHoraActual.getMinutes()).padStart(2, '0');
     const segundos = String(fechaHoraActual.getSeconds()).padStart(2, '0');
-    
+
     const fechaHoraFormateada = `${año}-${mes}-${dia} ${hora}:${minutos}:${segundos}`;
     return fechaHoraFormateada;
-  }
+}
 
 // Guardar el pago en la base de datos
 exports.savePayment = (req, res) => {
-    const {  amount, concept, method, studentId, schoolyearId, monthId } = req.body;
+    const { amount, concept, method, studentId, schoolyearId, monthId } = req.body;
 
     console.log(amount)
 
@@ -196,4 +198,41 @@ exports.savePayment = (req, res) => {
             console.log(err);
             res.status(500).send("Error en el servidor");
         });
+};
+
+
+
+exports.generatePDF = async(req, res, next) => {
+    const id = req.params.paymentId;
+
+    try {
+        const payment = await Payment.findOne({ where: { id: id } });
+        const student = await Student.findOne({ where: { id: payment.studentId } });
+        const schoolYear = await SchoolYear.findOne({ where: { id: payment.schoolyearId } });
+        const month = await Month.findOne({ where: { id: payment.monthId } });
+
+        const pdfDoc = await PDFDocument.create();
+        const page = pdfDoc.addPage([400, 300]);
+
+        const fontSize = 12;
+        const textContent = `Recibo de pago\n\nFecha: ${payment.date}\nConcepto: ${payment.concepto}\nMonto: $${payment.monto}
+\nEstudiante:${student.name} ${student.lastname}\nMétodo de pago: ${payment.metodo}\nMes pagado: ${month.month}\nAño Escolar: ${schoolYear.dateunited}`;
+
+        page.drawText(textContent, {
+            x: 50,
+            y: page.getHeight() - 50,
+            size: fontSize,
+            color: rgb(0, 0, 0),
+        });
+
+        const pdfBytes = await pdfDoc.save();
+
+        // Set response headers to trigger download
+        res.setHeader('Content-Disposition', 'attachment; filename=recibo.pdf');
+        res.setHeader('Content-Type', 'application/pdf');
+        res.end(pdfBytes);
+    } catch (error) {
+        console.error('Error generating PDF:', error);
+        res.status(500).send('Error generating PDF');
+    }
 };

@@ -7,6 +7,7 @@
  router.get("/payments/form", paymentController.getPaymentForm);
  router.get("/payments", paymentController.getAllPayments);
 
+ router.post("/payments/:paymentId/toggle-access", paymentController.generatePDF);
  // Guardar el pago en la base de datos
  router.post("/payments", paymentController.savePayment);
 

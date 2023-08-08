@@ -24,11 +24,18 @@
    <p  class="card-text">Metodo de pago: {{pay.metodo}}</p>
    <p  class="card-text">Estudiante: {{pay.student.dataValues.name}}</p>
       <p  class="card-text">Mes: {{pay.month.dataValues.month}}</p>
+    <br>
+         <form action="/payments/{{pay.id}}/toggle-access" method="POST">
+                <button type="submit" class="btn btn-secondary btn-block">Generar Volante.</button>
+              </form>
       </div>    
     
+
     </div>
 
+
 </div>
+
 
 </div>
 

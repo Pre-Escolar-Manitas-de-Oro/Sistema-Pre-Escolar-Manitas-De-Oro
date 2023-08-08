@@ -18,10 +18,12 @@
         "express-mysql-session": "^2.1.8",
         "express-session": "^1.17.3",
         "express-validator": "^6.14.2",
+        "fs": "^0.0.1-security",
         "mysql2": "^2.3.3",
         "parser": "^0.1.4",
         "passport": "^0.6.0",
         "passport-local": "^1.0.0",
+        "pdf-lib": "^1.17.1",
         "sequelize": "^6.26.0",
         "timeago.js": "^4.0.2",
         "uuid": "^9.0.0"
