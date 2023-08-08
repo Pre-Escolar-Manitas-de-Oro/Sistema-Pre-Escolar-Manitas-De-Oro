@@ -13,17 +13,18 @@
 
 {{#each year as |y|}}
 
-<div class="col-md-4 mt-5 mb-3">
-
-   <div class="card bg-dark text-light" style="width: 18rem;">
-
+<div class="cards">
+   <div class="card-container">
+    <div class="cd-container">
+      <div class="info">
     <div class="card-body">
-        <h5 required class="card-text text-light">Año Escolar:{{y.dateunited}}</h5>
+        <h5 required class="card-info">Año Escolar:{{y.dateunited}}</h5>
 
       <a class=" btn btn-success" href="/edit-schoolyear/{{y.id}}?edit=true">editar</a>       
      
     </div>
-
+      </div>
+    </div>
 
 </div>
 

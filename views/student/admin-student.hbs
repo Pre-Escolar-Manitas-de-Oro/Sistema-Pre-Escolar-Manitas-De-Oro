@@ -23,6 +23,19 @@
         <p  class="card-info">Familia: {{est.family.dataValues.name}}</p>
         <a class="btn btn-secondary btn-block" href="/edit-student/{{est.id}}?edit=true">Editar</a> 
         </div>
+
+        
+              {{#if est.isActive}}
+              <p class="student-status">Estado: Activo</p>
+              <form action="/students/{{est.id}}/toggle-access" method="POST">
+                <button type="submit" class="btn btn-secondary btn-block">Desactivar</button>
+              </form>
+              {{else}}
+              <p class="student-status">Estado: Inactivo</p>
+              <form action="/students/{{est.id}}/toggle-access" method="POST">
+                <button type="submit" class="btn btn-secondary btn-block">Activar</button>
+              </form>
+              {{/if}}
         <div class="img-info">
             <img class="img-edit" src="/assets/imgs/students-img-save.png">    
         </div>
