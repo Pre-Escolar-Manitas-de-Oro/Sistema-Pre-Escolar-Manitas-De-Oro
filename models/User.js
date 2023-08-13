@@ -11,6 +11,18 @@ const User = sequelize.define("users", {
         allowNull: false,
         primaryKey: true,
     },
+    name: {
+
+        type: Sequelize.STRING,
+        allowNull: false,
+
+    },
+    lastname: {
+
+        type: Sequelize.STRING,
+        allowNull: false,
+
+    },
     username: {
 
         type: Sequelize.STRING,
@@ -30,6 +42,7 @@ const User = sequelize.define("users", {
         allowNull: false,
 
     },
+
 
     role: {
 

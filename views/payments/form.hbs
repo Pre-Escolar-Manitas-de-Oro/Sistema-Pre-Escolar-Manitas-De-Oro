@@ -1,5 +1,9 @@
+ 
+
  <div class="form-container row justify-content-center mt-5">
   <div class="col-md-7">
+     {{#if hasSchoolYear}}
+     {{#if hasStudents}}
     <div class="card">
     <div class="form-ContainerPay text-center">
           <p class="form-text2">Registrar pago</p>
@@ -84,8 +88,17 @@
       <button type="submit" class="btn btn-succ mt-3">Realizar pago</button>
     </form>
     </div>
+          {{else}}
+    <h1 class="text-danger mt-5 text-center">No hay Estudiantes creados</h1>
+    <h3 class="text-danger mt-5 text-center">Guarde estudiantes primero.</h3>
+    {{/if}}
+       {{else}}
+    <h1 class="text-danger mt-5 text-center">No hay Años Escolares creados</h1>
+    <h3 class="text-danger mt-5 text-center">Contacte con el administrador para que le añada los años.</h3>
+    {{/if}}
   </div>
   </div>
+  
 
 <script>
   // Obtener referencias a los elementos

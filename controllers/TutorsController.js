@@ -37,7 +37,8 @@ exports.GetSaveTutor = (req, res, next) => {
                 pageTitle: "Administra Tutores.",
                 tutor: tutor,
                 hasTutor: tutor.length > 0,
-                family: family
+                family: family,
+                hasFamily: family.length > 0,
 
             });
 
@@ -88,24 +89,29 @@ exports.getEditTutor = (req, res, next) => {
         if (!tutors) {
             return res.redirect("/tutor");
         }
+        Family.findAll().then((result1) => {
+            const family = result1.map((result1) => result1.dataValues);
 
-        Tutor.findAll().then((result2) => {
+            Tutor.findAll().then((result2) => {
 
-            const tutor = result2.map((result2) => result2.dataValues);
+                const tutor = result2.map((result2) => result2.dataValues);
 
-            console.log(tutor.length > 0);
-            res.render("tutors/save-tutor", {
-                pageTitle: "Editar-tutores",
-                tutorActive: true,
-                tutor: tutors,
-                editMode: edit,
-                hasTutor: Tutor.length > 0
+                console.log(tutor.length > 0);
+                res.render("tutors/save-tutor", {
+                    pageTitle: "Editar-tutores",
+                    tutorActive: true,
+                    tutor: tutors,
+                    editMode: edit,
+                    hasTutor: Tutor.length > 0,
+                    hasFamily: family.length > 0,
+                    family: family,
+                });
+            }).catch(err => {
+                console.log(err);
             });
-        }).catch(err => {
-            console.log(err);
+        }).catch(err2 => {
+            console.log(err2);
         });
-    }).catch(err2 => {
-        console.log(err2);
     });
 
 

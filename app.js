@@ -5,7 +5,10 @@ const app = express();
 const expressHbs = require("express-handlebars");
 const ErrorController = require("./controllers/ErrorControlller");
 const sequelize = require("./util/database");
-
+const flash = require("connect-flash");
+const bcrypt = require("bcryptjs");
+const { v4: uuidv4 } = require("uuid");
+const session = require("express-session");
 
 // importar los modelos.
 
@@ -29,9 +32,6 @@ const SchoolYear = require("./models/Schoool_Year");
 const Months = require("./models/Months");
 
 
-
-
-
 //importar las rutas.
 
 const student = require("./routes/student");
@@ -44,12 +44,14 @@ const tutors = require("./routes/tutors");
 
 const schoolyears = require("./routes/schoolyear");
 const payments = require("./routes/payments");
-
+const loginRouter = require("./routes/login");
 
 //importar helpers.
 
 const comparador = require("./util/helpers/hbs/comparar");
 const compare = require("./util/helpers/hbs/compare");
+
+
 
 
 app.engine('hbs', expressHbs.engine({
@@ -73,8 +75,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 
+app.use(session({ secret: "anything", resave: false, saveUninitialized: false }));
+app.use(flash());
+
+app.use((req, res, next) => {
+    const errors = req.flash("errors");
+
+    res.locals.isAuthenticated = req.session.isLoggedIn;
+    res.locals.userd = req.session.userdata;
+    res.locals.errorMessages = errors;
+    res.locals.hasErrorMessages = errors.length > 0;
+    next();
+})
+
+
 //Inicializacion de las rutas
 
+app.use(loginRouter);
 app.use(student);
 app.use(courses);
 app.use(families);
@@ -101,7 +118,6 @@ SchoolYear.hasMany(Payments);
 
 Payments.belongsTo(Students, { constraint: true, onDelete: "CASCADE" });
 Students.hasMany(Payments);
-
 
 Payments.belongsTo(Months, { constraint: true, onDelete: "CASCADE" });
 Months.hasMany(Payments);
@@ -148,32 +164,63 @@ sequelize.query("SHOW TABLES LIKE 'months'")
         console.error('Error al crear la tabla "mensualidad":', error);
     });
 
-    // Sincroniza el modelo "Batches" para crear la tabla si no existe
+// Sincroniza el modelo "Batches" para crear la tabla si no existe
 sequelize.query("SHOW TABLES LIKE 'batches'")
-.then(([results, metadata]) => {
-    const tableExists = results.length > 0;
-    if (!tableExists) {
-        // La tabla no existe, proceder a crearla e insertar las tandas
-        return Batches.sync({ alter: true }) // Crea la tabla si no existe
-            .then(() => {
-                return Batches.bulkCreate([
-                    { name: 'Mensualidad' , price: '6000'},
-                    { name: 'Hasta las 2' , price: '9000'},
-                    { name: 'Tanda extendida' , price: '11000'},
-                ]);
-            });
-    } else {
-        // La tabla ya existe, no es necesario crearla ni insertar las tandas
-        return Promise.resolve();
-    }
-})
-.then(() => {
+    .then(([results, metadata]) => {
+        const tableExists = results.length > 0;
+        if (!tableExists) {
+            // La tabla no existe, proceder a crearla e insertar las tandas
+            return Batches.sync({ alter: true }) // Crea la tabla si no existe
+                .then(() => {
+                    return Batches.bulkCreate([
+                        { name: 'Mensualidad', price: '6000' },
+                        { name: 'Hasta las 2', price: '9000' },
+                        { name: 'Tanda extendida', price: '11000' },
+                    ]);
+                });
+        } else {
+            // La tabla ya existe, no es necesario crearla ni insertar las tandas
+            return Promise.resolve();
+        }
+    })
+    .then(() => {
 
-    console.log('Tabla "tandas" creada e insertada correctamente.');
-})
-.catch((error) => {
-    console.error('Error al crear la tabla "tandas":', error);
-});
+        console.log('Tabla "tandas" creada e insertada correctamente.');
+    })
+    .catch((error) => {
+        console.error('Error al crear la tabla "tandas":', error);
+    });
+
+sequelize.query("SHOW TABLES LIKE 'users'")
+    .then(([results, metadata]) => {
+        const tableExists = results.length > 0;
+        if (!tableExists) {
+            // La tabla no existe, proceder a crearla e insertar los usuarios
+            return Users.sync({ alter: true }) // Crea la tabla si no existe
+                .then(() => {
+                    // Hash de las contraseñas
+                    return Promise.all([
+                        bcrypt.hash('manitasadmin123', 12),
+                        bcrypt.hash('RosaSC123', 12)
+                    ]).then(([hashedAdminPassword, hashedSecretariaPassword]) => {
+                        return Users.bulkCreate([
+                            { name: 'admin', lastname: 'admin', username: 'admin', email: 'admin@dummy.com', password: hashedAdminPassword, role: 'Admin' },
+                            { name: 'Rosa', lastname: 'Cedano', username: 'Rosa', email: 'Rosa@dummy.com', password: hashedSecretariaPassword, role: 'Secretaria' }
+                        ]);
+                    });
+                });
+        } else {
+            // La tabla ya existe, no es necesario crearla ni insertar las tandas
+            return Promise.resolve();
+        }
+    })
+    .then(() => {
+
+        console.log('Tabla "usuarios" creada e insertada correctamente.');
+    })
+    .catch((error) => {
+        console.error('Error al crear la tabla "usuarios":', error);
+    });
 
 
 

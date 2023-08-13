@@ -1,5 +1,6 @@
 <div class="form-container row justify-content-center mt-5">
   <div class="col-md-6">
+      {{#if hasFamily}}
     <div class="card border-0 shadow-lg rounded-lg">
       <div class="form-ContainerTutors text-center">
       <p class="form-text">{{#if editMode}}Edición{{else}}Creación{{/if}} de Tutores</p>
@@ -25,7 +26,7 @@
             <select id="familys" name="familys" class="form-control" required>
               <option value="" {{#if editMode}}{{else}} selected {{/if}}>Seleccione una familia</option>
               {{#each family as |fam|}}
-              {{#if (equals fam.id ../tutors.familyId)}}
+              {{#if (equals fam.id ../tutor.familyId)}}
               <option value="{{fam.id}}" selected>{{fam.name}}</option>
               {{else}}
               <option value="{{fam.id}}">{{fam.name}}</option>
@@ -43,5 +44,9 @@
         </form>
       </div>
     </div>
+       {{else}}
+    <h1 class="text-danger mt-5 text-center">No hay Familias creadas</h1>
+    <h3 class="text-danger mt-5 text-center">Cree familias para continuar.</h3>
+    {{/if}}
   </div>
 </div>

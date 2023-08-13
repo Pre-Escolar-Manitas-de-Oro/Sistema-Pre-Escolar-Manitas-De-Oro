@@ -40,7 +40,7 @@ exports.GetSaveCourse = (req, res, next) => {
                 pageTitle: "Administra Cursos.",
                 course: course,
                 schoolyear: year,
-
+                hasSchoolYear: School_Year.length > 0,
 
             });
 

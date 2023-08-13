@@ -15,8 +15,6 @@ exports.getPaymentForm = (req, res, next) => {
         .then((result) => {
             const students = result.map((result) => result.dataValues);
 
-
-
             SchoolYear.findAll().then((result) => {
 
                 const schoolyear = result.map((result) => result.dataValues);
@@ -53,6 +51,7 @@ exports.getPaymentForm = (req, res, next) => {
                                 month: month,
                                 hasPayments: payment.length > 0,
                                 hasStudents: students.length > 0,
+                                hasSchoolYear: schoolyear.length > 0,
                             });
 
 
@@ -161,7 +160,7 @@ exports.savePayment = (req, res) => {
                     }
 
                     Student.update({
-                            active: true,
+                            isActive: true,
                         }, { where: { id: payment.studentId } })
                         .then(() => {
                             // Fetch the associated Student and SchoolYear models for the created Payment

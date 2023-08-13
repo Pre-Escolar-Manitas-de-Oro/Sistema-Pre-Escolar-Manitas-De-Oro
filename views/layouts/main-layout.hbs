@@ -6,6 +6,7 @@
     <title>{{pageTitle}}</title>
     <link rel="stylesheet" href="/assets/css/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="/assets/css/static/style.css"/>
+    <link rel="stylesheet" href="/assets/css/static/login.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href='https://unpkg.com/css.gg@2.0.0/icons/css/add.css' rel='stylesheet'>
@@ -17,6 +18,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Borel&family=Edu+SA+Beginner:wght@700&family=Fira+Sans:wght@300&display=swap" rel="stylesheet">
   </head>
 <body>
+
+  {{#if isAuthenticated}}
   <!--Menú-->
    <nav class="navbar navbar-expand-md navbar-dark bg-success mb-0">
       <div class="container-fluid">
@@ -41,12 +44,16 @@
               <a class="nav-link" href="/">Home</a>
             </li>   
             <li class="nav-item">
+
               <a class="nav-link" href="/admin-student">Estudiantes</a>
-            </li>        
+            </li>       
+             
+
+              {{#if (equals userd.role 'Admin')}}
             <li class="nav-item">
               <a class="nav-link" href="/course">Cursos</a>
             </li>
-
+ {{/if}}
               <li class="nav-item">
               <a class="nav-link" href="/family">Familias</a>
             </li>
@@ -54,15 +61,44 @@
              <li class="nav-item">
               <a class="nav-link" href="/tutor">Tutores</a>
             </li>
+
+             {{#if (equals userd.role 'Admin')}}
             <li class="nav-item">
-              <a class="nav-link" href="/schoolyear">Año escolar</a>
+              <a class="nav-link" href="/schoolyear">Año Escolar.</a>
             </li>
+             {{/if}}
             <li class="nav-item">
-              <a class="nav-link" href="/payments">Pagos</a>
+              <a class="nav-link" href="/payments">Pagos.</a>
             </li>
+
+             <li class="nav-item">
+              <a class="nav-link" href="/logout">Cerrar seccion</a>
+            </li>
+           
           </ul>
         </div>
          </nav>
+          {{/if}}
+
+          <main >
+<div class="row">
+  <div id="container-html" class="col-8 offset-2">
+        {{#if hasErrorMessages}}
+      <div><br><br></div>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <ul>
+        {{#each errorMessages}}
+        <li>{{this}}</li>
+        {{/each}}
+      </ul>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+      {{/if}}
+  </div>
+</div>
+
+
+
     <div class="container">
 
     {{{body}}}

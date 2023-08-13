@@ -80,7 +80,8 @@ exports.getEditFamily = (req, res, next) => {
                 familyActive: true,
                 editMode: edit,
                 family: familys,
-                hasFamily: family.length > 0
+                familys: family,
+                hasFamily: familys.length > 0
             });
         }).catch(err => {
             console.log(err);

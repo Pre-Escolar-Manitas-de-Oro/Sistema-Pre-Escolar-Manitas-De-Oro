@@ -5,12 +5,12 @@ const router = express.Router();
 
 
 const schoolyearController = require('../controllers/SchoolYearController');
+const isAuth = require("../middlewares/is-auth");
 
-
-router.get("/schoolyear", schoolyearController.GetSchoolYear);
-router.get("/save-schoolyear", schoolyearController.GetSaveSchoolYear);
-router.post("/save-schoolyear", schoolyearController.PostSaveSchoolyear);
-router.get("/edit-schoolyear/:schoolyearId", schoolyearController.getEditSchoolyear);
-router.post("/edit-schoolyear", schoolyearController.postEditSchoolyear);
+router.get("/schoolyear", isAuth, schoolyearController.GetSchoolYear);
+router.get("/save-schoolyear", isAuth, schoolyearController.GetSaveSchoolYear);
+router.post("/save-schoolyear", isAuth, schoolyearController.PostSaveSchoolyear);
+router.get("/edit-schoolyear/:schoolyearId", isAuth, schoolyearController.getEditSchoolyear);
+router.post("/edit-schoolyear", isAuth, schoolyearController.postEditSchoolyear);
 
 module.exports = router;

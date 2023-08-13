@@ -1,6 +1,8 @@
+
+
 <div class="form-container row justify-content-center mt-5">
   <div class="col-md-6">
-
+  {{#if hasSchoolYear}}
     <div class="card">
       <div class="form-ContainerCourse text-center">
         <p class="form-text">{{#if editMode}}Edicion{{else}}Creacion{{/if}} de Cursos</p>
@@ -39,5 +41,9 @@
         </form>
       </div>
     </div>
+       {{else}}
+    <h1 class="text-danger mt-5 text-center">No hay Años Escolares creados</h1>
+    <h3 class="text-danger mt-5 text-center">Añada los años.</h3>
+    {{/if}}
   </div>
 </div>

@@ -122,7 +122,7 @@ exports.postEditSchoolyear = (req, res, next) => {
         }
 
 
-        SchoolYear.update({ date: date, date2: date2 }, { where: { id: id } })
+        SchoolYear.update({ date: date, date2: date2, dateunited: date + "-" + date2 }, { where: { id: id } })
             .then((result) => {
                 return res.redirect("/schoolyear");
             }).catch((err) => {

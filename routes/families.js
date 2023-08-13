@@ -6,12 +6,12 @@ const router = express.Router();
 
 const familiesController = require('../controllers/FamiliesController');
 const Families = require("../models/Courses");
-
-router.get("/family", familiesController.GetFamily);
-router.get("/save-family", familiesController.GetSaveFamily);
-router.post("/save-family", familiesController.PostSaveFamily);
-router.get("/edit-family/:familyId", familiesController.getEditFamily);
-router.post("/edit-family", familiesController.postEditFamily);
+const isAuth = require("../middlewares/is-auth");
+router.get("/family", isAuth, familiesController.GetFamily);
+router.get("/save-family", isAuth, familiesController.GetSaveFamily);
+router.post("/save-family", isAuth, familiesController.PostSaveFamily);
+router.get("/edit-family/:familyId", isAuth, familiesController.getEditFamily);
+router.post("/edit-family", isAuth, familiesController.postEditFamily);
 
 
 module.exports = router;
