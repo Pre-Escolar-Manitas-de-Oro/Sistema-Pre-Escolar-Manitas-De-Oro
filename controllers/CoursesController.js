@@ -40,7 +40,7 @@ exports.GetSaveCourse = (req, res, next) => {
                 pageTitle: "Administra Cursos.",
                 course: course,
                 schoolyear: year,
-                hasSchoolYear: School_Year.length > 0,
+                hasSchoolYear: year.length > 0,
 
             });
 
@@ -107,7 +107,8 @@ exports.getEditCourse = (req, res, next) => {
                     courses: courses,
                     course: courses,
                     schoolyear: year,
-                    hasCourse: Course.length > 0
+                    hasCourse: course.length > 0,
+                    hasSchoolYear: year.length > 0
                 });
             }).catch(err => {
                 console.log(err);
