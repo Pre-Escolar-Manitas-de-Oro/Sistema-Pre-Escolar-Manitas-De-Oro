@@ -1,13 +1,53 @@
-html,
-body {
+.login-container{
+    margin: auto;
+    margin-top: 80px;
+    display: flex;
+    padding: 25px;
+}
+
+.cart{
+    border-right: 5px solid green;
+    display: flex;
+    box-shadow: 0px 2px 25px gray;
+    text-align: center;
+    width: 80%;
+    background-color: white;
+}
+
+.login-icon{
+    display: none;
+}
+
+.login-img img{
+    width: 100%;
     height: 100%;
 }
 
-body {
-    align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background-color: #f5f5f5;
+.label-txt{
+    display: flex;
+    justify-content: space-between;
+}
+
+.gg-user,
+.gg-keyhole{
+    margin: 5px;
+}
+
+.login-button{
+    margin-top: 15px;
+    border-radius: 25px;
+    background-color: rgb(84, 167, 84);
+    color: white;
+}
+
+.login-button:hover{
+    background-color: rgb(25, 103, 25);
+}
+
+.login-img-portrait{
+    display: none;
+    margin: 50px;
+    width: 50%;
 }
 
 .form-signin {
@@ -62,4 +102,38 @@ body {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
+}
+
+
+@media screen and (max-width: 684px){
+    .login-img img {
+        display: none;
+    }
+
+    .card{
+        margin: auto;
+    }
+
+    .login-icon{
+        display: block;
+    }
+}
+
+@media screen and (width: 912px){
+    .login-img-portrait{
+        display: block;
+    }
+}
+
+@media screen and (width: 1080px){
+    .login-img-portrait{
+        display: block;
+    }
+}
+
+
+@media screen and (width: 768px){
+    .login-img-portrait{
+        display: block;
+    }
 }

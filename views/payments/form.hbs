@@ -1,17 +1,15 @@
- 
-
- <div class="form-container row justify-content-center mt-5">
+<div class="form-container row justify-content-center mt-5">
   <div class="col-md-7">
      {{#if hasSchoolYear}}
      {{#if hasStudents}}
-    <div class="card">
+    <div class="card border-0 shadow-lg rounded-lg">
     <div class="form-ContainerPay text-center">
           <p class="form-text2">Registrar pago</p>
     </div>
     </div>
     <div class="form-info-container card-body shadow-lg p-3">
     <form action="/payments" method="POST">
-      <div class="mb-3 mt-2">
+      <div class="mb-2 mt-2">
         <label for="amount" class="card-info">Monto</label>
         <input id='mont' type="text" class="form-control" name="mont" required disabled>
          <input id='amount' type="hidden" class="form-control" name="amount" required >

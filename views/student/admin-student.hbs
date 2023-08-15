@@ -15,6 +15,24 @@
 
 <div class="cards">
    <div class="card-container">
+            {{#if est.isActive}}
+              <p class="card-info student-state">Estado: Activo</p>
+              <form action="/students/{{est.id}}/toggle-access" method="POST">
+                <button type="submit" class="inactive-btn btn btn-secondary btn-block">
+                  Desactivar
+                  <i class="gg-close-o"></i>
+                </button>
+              </form>
+              {{else}}
+              <p class="card-info student-state">Estado: Inactivo</p>
+              <form action="/students/{{est.id}}/toggle-access" method="POST">
+                <button type="submit" class="active-btn btn btn-secondary btn-block"> 
+                  Activar
+                  <i class="gg-check-o"></i>
+                </button>
+              </form>
+              {{/if}}
+
     <div class="cd-container">
         <div class="info">
         <p  class="card-info">Nombre: {{est.name}}</p>
@@ -23,28 +41,10 @@
         <p  class="card-info">Familia: {{est.family.dataValues.name}}</p>
         <a class="btn btn-secondary btn-block" href="/edit-student/{{est.id}}?edit=true">Editar</a> 
         </div>
-
-        
-              {{#if est.isActive}}
-              <p class="student-status">Estado: Activo</p>
-              <form action="/students/{{est.id}}/toggle-access" method="POST">
-                <button type="submit" class="btn btn-secondary btn-block">Desactivar</button>
-              </form>
-              {{else}}
-              <p class="student-status">Estado: Inactivo</p>
-              <form action="/students/{{est.id}}/toggle-access" method="POST">
-                <button type="submit" class="btn btn-secondary btn-block">Activar</button>
-              </form>
-              {{/if}}
-        <div class="img-info">
-            <img class="img-edit" src="/assets/imgs/students-img-save.png">    
-        </div>
+        </div>   
     </div>
     </div>
-
-
 </div>
-
 </div>
 
 {{/each}}

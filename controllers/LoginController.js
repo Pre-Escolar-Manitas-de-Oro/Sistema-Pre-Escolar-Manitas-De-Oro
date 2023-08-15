@@ -39,7 +39,7 @@ exports.PostLogin = (req, res, next) => {
             }
 
             if (user.estado === "0") {
-                req.flash("errors", "Su cuenta no esta activa");
+                req.flash("errors", "Su cuenta no está activa");
                 return res.redirect("/login");
             }
 

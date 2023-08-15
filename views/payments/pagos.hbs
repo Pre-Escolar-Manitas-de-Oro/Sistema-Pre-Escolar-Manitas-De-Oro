@@ -16,26 +16,28 @@
    <div class="card-container">
     <div class="cd-container">
       <div class="info">
-        <h5  class="card-info">Fecha de pago: {{pay.date}}</h5>
-  <p  class="card-text">Año escolar: {{pay.schoolyear.dataValues.date}}</p>
-   <p  class="card-text">Monto: {{pay.monto}}</p>
-   <p  class="card-text">Concepto: {{pay.concepto}}</p>
-   <p  class="card-text">Número de recibo: {{pay.numero_recibo}}</p>
-   <p  class="card-text">Metodo de pago: {{pay.metodo}}</p>
-   <p  class="card-text">Estudiante: {{pay.student.dataValues.name}}</p>
-      <p  class="card-text">Mes: {{pay.month.dataValues.month}}</p>
+   <p  class="card-info">- Fecha de pago: {{pay.date}}</p>
+   <p  class="card-info">- Año escolar: {{pay.schoolyear.dataValues.date}}</p>
+   <p  class="card-info">- Monto: {{pay.monto}}</p>
+   <p  class="card-info">- Concepto: {{pay.concepto}}</p>
+   <p  class="card-info">- Número de recibo: {{pay.numero_recibo}}</p>
+   <p  class="card-info">- Método de pago: {{pay.metodo}}</p>
+   <p  class="card-info">- Estudiante: {{pay.student.dataValues.name}}</p>
+   <p  class="card-info">- Mes: {{pay.month.dataValues.month}}</p>
+   
     <br>
          <form action="/payments/{{pay.id}}/toggle-access" method="POST">
-                <button type="submit" class="btn btn-secondary btn-block">Generar Volante.</button>
-              </form>
+                <button type="submit" class="btn btn-secondary btn-block p-3">
+                  <i class="gg-printer"></i>
+                </button>
+        </div>
+          <div class="img-info">
+            <img class="img-edit" src="https://www.pngmart.com/files/7/Payment-Download-PNG-Image.png">    
+          </div>
+        </form>
       </div>    
-    
-
     </div>
-
-
 </div>
-
 
 </div>
 

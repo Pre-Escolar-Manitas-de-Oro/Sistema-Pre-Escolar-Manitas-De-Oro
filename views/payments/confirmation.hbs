@@ -1,19 +1,27 @@
 <!-- views/confirmation.hbs -->
-
 <!DOCTYPE html>
 <html>
 <head>
   <title>{{ pageTitle }}</title>
 </head>
 <body>
-  <h1>Pago realizado con éxito ✓</h1> 
-  <p>Fecha: {{ payment.date }}</p>
-  <p>Monto: {{ payment.monto }}</p>
-  <p>Concepto: {{ payment.concepto }}</p>
-  <p>Número de recibo: {{ payment.numero_recibo}}</p>
-  <p>Método de pago: {{ payment.metodo}}</p>
-  <p>Estudiante: {{ payment.student.dataValues.name}}</p>
-   <p>Año Escolar: {{ payment.schoolyear.dataValues.dateunited}}</p>
-  <p>Mes: {{ payment.month.dataValues.month}}</p>
+  <div class="pay-container">
+    <div class="pay-confirm-title">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Sign-check-icon.png">
+      <h1>Pago realizado con éxito</h1>
+    </div>
+    <div class="payment-info-container">
+      <div class="payment-info">
+        <p class="card-info">🗸 Fecha: {{ payment.date }}</p>
+        <p class="card-info">🗸 Monto: {{ payment.monto }}</p>
+        <p class="card-info">🗸 Concepto: {{ payment.concepto }}</p>
+        <p class="card-info">🗸 Número de recibo: {{ payment.numero_recibo}}</p>
+        <p class="card-info">🗸 Método de pago: {{ payment.metodo}}</p>
+        <p class="card-info">🗸 Estudiante: {{ payment.student.dataValues.name}}</p>
+        <p class="card-info">🗸 Año Escolar: {{ payment.schoolyear.dataValues.dateunited}}</p>
+        <p class="card-info">🗸 Mes: {{ payment.month.dataValues.month}}</p>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

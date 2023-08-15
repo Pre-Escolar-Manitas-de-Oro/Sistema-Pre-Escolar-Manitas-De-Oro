@@ -1,5 +1,3 @@
-
-
 <div class="form-container row justify-content-center mt-5">
   <div class="col-md-6">
   {{#if hasSchoolYear}}
@@ -42,8 +40,15 @@
       </div>
     </div>
        {{else}}
-    <h1 class="text-danger mt-5 text-center">No hay Años Escolares creados</h1>
-    <h3 class="text-danger mt-5 text-center">Añada los años.</h3>
-    {{/if}}
+       <div class="card-danger-container">
+          <img src="https://static.vecteezy.com/system/resources/previews/009/336/036/non_2x/3d-illustration-of-school-supplies-with-back-to-school-theme-free-png.png">
+          <h1 class="text-danger mt-5">
+            No hay Años Escolares creados
+          </h1>
+          <h3 class="text-danger mt-5">
+             Añada los años
+          </h3>
+        </div>
+        {{/if}}
   </div>
 </div>
